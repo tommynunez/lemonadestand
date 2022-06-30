@@ -6,8 +6,71 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Toolkit.Diagnostics" Version="7.1.2" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.11.1" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.5.5" />
+    <PackageReference Include="HotChocolate.Subscriptions" Version="13.0.0-preview.24" />
+    <PackageReference Include="HotChocolate.AspNetCore.Abstractions" Version="10.5.5" />
+    <PackageReference Include="HotChocolate.AspNetCore.GraphiQL" Version="10.5.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Data\" />
+    <None Remove="Services\" />
+    <None Remove="Controllers\" />
+    <None Remove="Microsoft.AspNetCore.Mvc.Core" />
+    <None Remove="Microsoft.AspNetCore.Mvc.Abstractions" />
+    <None Remove="Data\Repositories\" />
+    <None Remove="Data\Configurations\" />
+    <None Remove="Microsoft.Toolkit.Diagnostics" />
+    <None Remove="AutoMapper" />
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Microsoft.EntityFrameworkCore" />
+    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Microsoft.Extensions.Configuration.Abstractions" />
+    <None Remove="Microsoft.Extensions.Configuration" />
+    <None Remove="Microsoft.Extensions.Configuration.Binder" />
+    <None Remove="Microsoft.EntityFrameworkCore.Design" />
+    <None Remove="Graphql\" />
+    <None Remove="Graphql\Mutations\" />
+    <None Remove="HotChocolate.AspNetCore" />
+    <None Remove="Graphql\Queries\" />
+    <None Remove="HotChocolate.AspNetCore.Abstractions" />
+    <None Remove="HotChocolate.AspNetCore.GraphiQL" />
+    <None Remove="GraphQL.AspNet" />
+    <None Remove="HotChocolate.AspNetCore.Playground" />
+    <None Remove="HotChocolate.Subscriptions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Services\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Data\Repositories\" />
+    <Folder Include="Data\Configurations\" />
+    <Folder Include="Graphql\" />
+    <Folder Include="Graphql\Mutations\" />
+    <Folder Include="Graphql\Queries\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LemonadeStand.Abstractions\LemonadeStand.Abstractions.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
