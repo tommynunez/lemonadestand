@@ -1,5 +1,6 @@
 ﻿using LemonadeStand.Abstractions.Entities;
 using LemonadeStand.Abstractions.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace LemonadeStand.Data.Repositories
 {
@@ -32,6 +33,30 @@ namespace LemonadeStand.Data.Repositories
                 _logger.LogInformation(ORDER_INSERT_ERROR_MESSAGE, ex.Message);
             }
             return returnValue;
+        }
+
+        public async Task<IEnumerable<Order>> GetOrdersAsync()
+        {
+            var eOrderList = new List<Order>();
+
+            try
+            {
+                //_logger.LogInformation(GET_PRODUCT_MESSAGE);
+                eOrderList = await _context.Orders
+                    .Include(x => x.LineItems)
+                        .ThenInclude(x => x.Product)
+                            .ThenInclude(x => x.LemonadeTypes)
+                        .ThenInclude(x => x.Products)
+                            .ThenInclude(x => x.Sizes)
+                            .OrderByDescending(x => x.Created)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogError(GET_PRODUCT_ERROR_MESSAGE, ex.Message);
+            }
+
+            return eOrderList;
         }
     }
 }

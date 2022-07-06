@@ -75,6 +75,7 @@ services
     .AddType<SizeMutation>()
     .AddType<LemonadeTypeQuery>()
     .AddType<ProductQuery>()
+    .AddType<OrderQuery>()
     .AddType<SizeQuery>();
 #endregion
 

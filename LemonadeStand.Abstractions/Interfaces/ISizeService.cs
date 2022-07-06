@@ -10,6 +10,7 @@ namespace LemonadeStand.Abstractions.Interfaces
 		Task InsertAsync(Size size);
 		Task UpdateAsync(int id, Size size);
 		Task DeleteAsync(int id);
+		Task<IEnumerable<Size>> GetAllSizesAsync();
 	}
 }
 

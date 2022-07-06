@@ -8,7 +8,7 @@
 		public string Phone { get; set; }
 		public double TotalCost { get; set; }
 
-		public virtual List<LineItem>? LineItems { get; set; }
+		public virtual List<LineItem> LineItems { get; set; }
 		public Order()
 		{
 		}

@@ -10,6 +10,7 @@ namespace LemonadeStand.Abstractions.Interfaces
 		Task InsertAsync(LemonadeType lemonadeType);
 		Task UpdateAsync(int id, LemonadeType lemonadeType);
 		Task DeleteAsync(int id);
+		Task<IEnumerable<LemonadeType>> GetAllLemonadeTypesAsync();
 	}
 }
 

@@ -10,7 +10,7 @@ namespace LemonadeStand.Graphql.Queries
         {
             try
             {
-                var oProductslist = await _productService.GetProductsAsync();
+                var oProductslist = await _productService.GetAllProductsAsync();
                 return oProductslist.ToList();
             }
             catch (Exception ex)
@@ -18,6 +18,21 @@ namespace LemonadeStand.Graphql.Queries
 
             }
             return new List<Product>();
+        }
+
+        public async Task<Product> RetrieveProductById([Service] IProductService _productService, int id)
+        {
+            var oProduct = new Product();
+            try
+            {
+                oProduct = await _productService.GetByIdAsync(id);
+                return oProduct;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return oProduct;
         }
     }
 }

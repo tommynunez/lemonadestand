@@ -62,6 +62,11 @@ namespace LemonadeStand.Data.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<IEnumerable<LemonadeType>> GetAllLemonadeTypesAsync()
+        {
+            return await _databaseContext.LemonadeTypes.ToListAsync();
+        }
+
         public async Task<LemonadeType> GetByIdAsync(int id)
         {
             return await _databaseContext.LemonadeTypes.FirstOrDefaultAsync(x => x.Id == id);

@@ -6,7 +6,8 @@ namespace LemonadeStand.Abstractions.Interfaces
 {
 	public interface IOrderController
 	{
-		Task<IActionResult> InsertOrderAsync(Order order);
+		Task<ActionResult> InsertOrderAsync(Order order);
+		Task<ActionResult> GetOrdersAsync();
 	}
 }
 

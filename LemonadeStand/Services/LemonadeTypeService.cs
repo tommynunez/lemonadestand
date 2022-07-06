@@ -50,6 +50,12 @@ namespace LemonadeStand.Services
             }
         }
 
+        public async Task<IEnumerable<LemonadeType>> GetAllLemonadeTypesAsync()
+        {
+            var oReturn = await _lemonadeTypeRepository.GetAllLemonadeTypesAsync();
+            return _mapper.Map<IEnumerable<LemonadeType>>(oReturn);
+        }
+
         public async Task<LemonadeType> GetByIdAsync(int id)
         {
             try

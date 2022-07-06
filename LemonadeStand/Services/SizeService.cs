@@ -50,6 +50,12 @@ namespace LemonadeStand.Services
             }
         }
 
+        public async Task<IEnumerable<Size>> GetAllSizesAsync()
+        {
+            var oReturn = await _sizeRepository.GetAllSizesAsync();
+            return _mapper.Map<IEnumerable<Size>>(oReturn);
+        }
+
         public async Task<Size> GetByIdAsync(int id)
         {
             try

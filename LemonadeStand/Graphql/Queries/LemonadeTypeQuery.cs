@@ -36,6 +36,21 @@ namespace LemonadeStand.Graphql.Queries
             }
             return new List<LemonadeType>();
         }
+
+        public async Task<IEnumerable<LemonadeType>> RetrieveAllLemonadeTypes([Service] ILemonadeTypeService _lemonadeTypeService)
+        {
+            try
+            {
+                var oLemoandeTypelist = await _lemonadeTypeService.GetAllLemonadeTypesAsync();
+                oLemoandeTypelist.ToList();
+                return oLemoandeTypelist;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new List<LemonadeType>();
+        }
     }
 }
 

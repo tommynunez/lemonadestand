@@ -19,7 +19,7 @@ namespace LemonadeStand.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertOrderAsync([FromBody] Order order)
+        public async Task<ActionResult> InsertOrderAsync([FromBody] Order order)
         {
             if (order == null)
             {
@@ -41,6 +41,20 @@ namespace LemonadeStand.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetOrdersAsync()
+        {
+            try
+            {
+                var oReturn = await _orderService.GetOrdersAsync();
+                return Ok(oReturn);
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
         }
     }
 }

@@ -37,6 +37,21 @@ namespace LemonadeStand.Graphql.Queries
             }
             return new List<Size>();
         }
+
+        public async Task<IEnumerable<Size>> RetrieveAllSizes([Service] ISizeService _sizeService)
+        {
+            try
+            {
+                var oSizelist = await _sizeService.GetAllSizesAsync();
+                oSizelist.ToList();
+                return oSizelist;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new List<Size>();
+        }
     }
 }
 

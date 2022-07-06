@@ -43,6 +43,12 @@ namespace LemonadeStand.Services
 
             return isSuccessful;
         }
+
+        public async Task<IEnumerable<Order>> GetOrdersAsync()
+        {
+            var oReturn = await _orderRepository.GetOrdersAsync();
+            return _autoMapper.Map<IEnumerable<Order>>(oReturn);
+        }
     }
 }
 

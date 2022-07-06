@@ -19,7 +19,35 @@ namespace LemonadeStand.Data.Repositories
             _logger = logger;
 		}
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<Product> GetByIdAsync(int id)
+        {
+            return await _databaseContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task InsertAsync(Product product)
+        {
+            await _databaseContext.Products.AddAsync(product);
+            await _databaseContext.SaveChangesAsync();
+            _databaseContext.ChangeTracker.Clear();
+        }
+
+        public async Task UpdateAsync(int id, Product product)
+        {
+            _databaseContext.Products.Update(product);
+            await _databaseContext.SaveChangesAsync();
+            _databaseContext.ChangeTracker.Clear();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var oModel = _databaseContext.Products.FirstOrDefault(x => x.Id == id);
+            oModel.Deleted = DateTime.Now;
+            _databaseContext.Update(oModel);
+            await _databaseContext.SaveChangesAsync();
+            _databaseContext.ChangeTracker.Clear();
+        }
+
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
             var eProductList = new List<Product>();
 
@@ -29,7 +57,8 @@ namespace LemonadeStand.Data.Repositories
                 eProductList = await _databaseContext.Products
                     .Include(x => x.Sizes)
                     .Include(x => x.LemonadeTypes).ToListAsync();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(GET_PRODUCT_ERROR_MESSAGE, ex.Message);
             }
