@@ -1,0 +1,505 @@
+{
+	"info": {
+		"_postman_id": "191627b5-95fb-461f-bec3-648c591b1c3c",
+		"name": "LemonadeStand",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GraphQL",
+			"item": [
+				{
+					"name": "Queries",
+					"item": [
+						{
+							"name": "Get Size By Id",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getSizeById($id: Int!) {\n    retrieveSizeTypeById(id: $id) {\n        id\n        name\n    }\n}",
+										"variables": "{\n    \"id\": 1\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Lemonade Type By Id",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getLemonadeTypeById($id: Int!) {\n    retrieveLemonadeTypeById(id: $id) {\n        id\n        name\n    }\n}",
+										"variables": "{\n    \"id\": 1\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Sizes",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getSizes {\n    retrieveAllSizes{\n        id\n        name\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Orders",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getOrders {\n    retrieveOrders {\n        id\n        firstName\n        lastName\n        email\n        phone\n        totalCost\n        lineItems {\n            cost\n            product {\n                size {\n                    id\n                    name\n                }\n                lemonadeType {\n                    id\n                    name\n                }\n                amount\n            }\n            quantity\n        }\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Lemonades",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getLemonadeTypes {\n      retrieveAllLemonadeTypes{\n        id\n        name\n      }\n    }\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Products",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getProducts {\n    products {\n        id\n        size {\n            id\n            name\n        }\n        lemonadeType {\n            id\n            name\n        }\n        amount\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product By Id",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getProductbyId($id: Int!) {\n    retrieveProductById(id: $id) {\n        id\n        size {\n            id\n            name\n        }\n        lemonadeType {\n            id\n            name\n        }\n        amount\n    }\n}",
+										"variables": "{\n    \"id\": 2\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mutation",
+					"item": [
+						{
+							"name": "Add Size",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation addSize($size: SizeInput!) {\n    insertSize(size: $size)\n}",
+										"variables": "{\n    \"size\": {\n        \"id\": 0,\n        \"name\": \"Extra Large\"\n    }\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Lemonade Type",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation addLemonadeType($lemonadeType: LemonadeTypeInput!) {\n    insertLemonadeType(lemonadeType: $lemonadeType)\n}",
+										"variables": "{\n    \"lemonadeType\": {\n        \"id\": 0,\n        \"name\": \"Strawberry Lemonade\"\n    }\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Size",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation updateSize($id: Int!, $size: SizeInput!) {\n    updateSize(id: $id, size: $size)\n}",
+										"variables": "{\n    \"id\": 3,\n    \"size\": {\n        \"id\": 3,\n        \"name\": \"Extra Extra Large\"\n    }\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Lemonade Type",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation updateLemonadeType($id: Int!, $lemonadeType: LemonadeTypeInput!) {\n    updateLemonadeType(id: $id, lemonadeType: $lemonadeType)\n}",
+										"variables": "{\n    \"id\": 3,\n    \"lemonadeType\": {\n        \"id\": 3,\n        \"name\": \"Cherry Lemonade\"\n    }\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Lemonade Type",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation deleteLemonadeType($id: Int!) {\n    deleteLemonadeType(id: $id)\n}",
+										"variables": "{\n    \"id\": 3,\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Size",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation deleteSize($id: Int!) {\n    deleteSize(id: $id)\n}",
+										"variables": "{\n    \"id\": 3,\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Order",
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation addOrder($order: OrderInput!) {\n    insertOrder(order: $order)\n}",
+										"variables": "{\n    \"order\":{\n        \"firstName\": \"Thomas\",\n        \"lastName\": \"Nunez\",\n        \"email\": \"thomasnunez92@gmail.com\",\n        \"phone\": \"(401) 688-0739\",\n        \"totalCost\": 7.50,\n        \"lineItems\": [\n            {\n                \"productId\": 1,\n                \"quantity\": 10,\n                \"cost\": 7.50\n            }\n        ]\n    }\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation addProduct($product: ProductMutationInput!) {\n    insertProduct(product: $product)\n}",
+										"variables": "{\n    \"product\": {\n        \"id\": 0,\n        \"lemonadeTypeId\":7,\n        \"sizeId\":1,\n        \"amount\": 2.00\n    }\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation updateProduct($id: Int!, $product: ProductMutationInput!) {\n    updateProduct(id: $id,product: $product)\n}",
+										"variables": "{\n    \"id\": 5,\n    \"product\": {\n        \"id\": 5,\n        \"lemonadeTypeId\": 7,\n        \"sizeId\": 2,\n        \"amount\": 5.00\n    }\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation deleteProduct($id: Int!) {\n    deleteProduct(id: $id)\n}",
+										"variables": "{\n    \"id\": 3,\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5021/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5021",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
