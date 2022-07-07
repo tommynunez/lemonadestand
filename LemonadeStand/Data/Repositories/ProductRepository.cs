@@ -21,7 +21,10 @@ namespace LemonadeStand.Data.Repositories
 
         public async Task<Product> GetByIdAsync(int id)
         {
-            return await _databaseContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+            return await _databaseContext.Products
+                .Include(x => x.Sizes)
+                .Include(x => x.LemonadeTypes)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task InsertAsync(Product product)

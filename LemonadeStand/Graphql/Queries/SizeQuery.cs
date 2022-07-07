@@ -22,22 +22,6 @@ namespace LemonadeStand.Graphql.Queries
             return oSize;
         }
 
-        public async Task<IEnumerable<Size>> RetrieveAllSizes([Service] ISizeService _sizeService, string search,
-            int pageIndex, int pageSize, string sortField = null)
-        {
-            try
-            {
-                var oSizelist = await _sizeService.GetAllAsync(search, pageIndex, pageSize, sortField);
-                oSizelist.ToList();
-                return oSizelist;
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return new List<Size>();
-        }
-
         public async Task<IEnumerable<Size>> RetrieveAllSizes([Service] ISizeService _sizeService)
         {
             try

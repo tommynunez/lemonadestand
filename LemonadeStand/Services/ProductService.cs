@@ -58,11 +58,11 @@ namespace LemonadeStand.Services
             }
         }
 
-        public async Task InsertAsync(Product product)
+        public async Task InsertAsync(ProductMutation product)
         {
             try
             {
-                Guard.IsNotNull<Product>(product, nameof(product));
+                Guard.IsNotNull<ProductMutation>(product, nameof(product));
                 _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_INSERT_SERVICE);
                 var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.Product>(product);
                 await _productRepository.InsertAsync(oEntity);
@@ -73,12 +73,12 @@ namespace LemonadeStand.Services
             }
         }
 
-        public async Task UpdateAsync(int id, Product product)
+        public async Task UpdateAsync(int id, ProductMutation product)
         {
             try
             {
                 Guard.IsNotEqualTo<int>(id, 0, nameof(id));
-                Guard.IsNotNull<Product>(product, nameof(product));
+                Guard.IsNotNull<ProductMutation>(product, nameof(product));
                 _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_UPDATE_SERVICE);
                 var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.Product>(product);
                 await _productRepository.UpdateAsync(id, oEntity);

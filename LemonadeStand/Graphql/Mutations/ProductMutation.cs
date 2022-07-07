@@ -7,7 +7,7 @@ namespace LemonadeStand.Graphql.Mutations
     [ExtendObjectType("Mutation")]
     public class ProductMutation
     {
-        public async Task<bool> InsertProductAsync([Service] IProductService _productService, Product product)
+        public async Task<bool> InsertProductAsync([Service] IProductService _productService, LemonadeStand.Abstractions.Models.ProductMutation product)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace LemonadeStand.Graphql.Mutations
             }
         }
 
-        public async Task<bool> UpdateProductAsync([Service] IProductService _productService, int id, Product product)
+        public async Task<bool> UpdateProductAsync([Service] IProductService _productService, int id, LemonadeStand.Abstractions.Models.ProductMutation product)
         {
             try
             {

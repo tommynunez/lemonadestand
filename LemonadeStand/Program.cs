@@ -38,6 +38,8 @@ var autoMapperconfiguration = new MapperConfiguration(cfg =>
         .ForMember(x => x.LemonadeTypes, opt => opt.MapFrom(src => src.LemonadeType))
         .ForMember(x => x.Sizes, opt => opt.MapFrom(src => src.Size))
         .ReverseMap();
+    cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
+        .ReverseMap();
 });
 IMapper mapper = autoMapperconfiguration.CreateMapper();
 services.AddSingleton(mapper);
@@ -73,6 +75,7 @@ services
     .AddType<LemonadeTypeMutation>()
     .AddType<OrderMutation>()
     .AddType<SizeMutation>()
+    .AddType<LemonadeStand.Graphql.Mutations.ProductMutation>()
     .AddType<LemonadeTypeQuery>()
     .AddType<ProductQuery>()
     .AddType<OrderQuery>()
