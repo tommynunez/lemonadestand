@@ -22,7 +22,7 @@ dotnet ef database update
 #run application
 dotnet run
 
-#make sure whatever port number the application is listening on is the same for the [LemonadeStandUI repo](https://github.com/tommynunez/LemonadeStandUI) so the two can communicate
+#make sure whatever port number the application is listening on is the same for the LemonadeStandUI repo so the two can communicate
 
 dotnet run
 info: Microsoft.Hosting.Lifetime[14]
