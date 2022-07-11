@@ -1,5 +1,6 @@
 ﻿using LemonadeStand.Abstractions.Interfaces;
 using LemonadeStand.Abstractions.Models;
+using LemonadeStand.Abstractions.Struct;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,48 +12,119 @@ namespace LemonadeStand.Controllers
     public class ProductController : ControllerBase, IProductController
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        private readonly ILogger<LemonadeTypeController> _logger;
+        public ProductController(IProductService productService, ILogger<LemonadeTypeController> logger)
         {
+            _logger = logger;
             _productService = productService;
         }
 
-        public Task DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IActionResult> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> GetProductsAsync()
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             try
             {
-                var oReturn = await _productService.GetAllProductsAsync();
-                return Ok(oReturn);
+                if (string.IsNullOrEmpty(id.ToString()))
+                {
+                    return BadRequest("id is empty");
+                }
+
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_DELETE_SERVICE);
+                await _productService.DeleteAsync(id);
+                return Ok();
             }
             catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_DELETE_SERVICE_ERROR);
+                return StatusCode(500);
             }
         }
 
-        public Task InsertAsync(Product size)
+        [HttpGet]
+        public async Task<IActionResult> GetProductsAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_GETALL_SERVICE);
+                var oProduct = await _productService.GetAllProductsAsync();
+                return Ok(oProduct);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_GETALL_SERVICE_ERROR);
+                return StatusCode(500);
+            }
         }
 
-        public Task UpdateAsync(int id, Product size)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (string.IsNullOrEmpty(id.ToString()))
+                {
+                    return BadRequest("id is empty");
+                }
+
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_GETBYID_SERVICE);
+                var oProduct = await _productService.GetByIdAsync(id);
+                return Ok(oProduct);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_GETBYID_SERVICE_ERROR);
+                return StatusCode(500);
+            }
         }
 
-        Task<IActionResult> IProductController.GetProductsAsync()
+        [HttpPost]
+        public async Task<IActionResult> InsertAsync([FromBody] ProductMutation productMutation)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (productMutation
+                    .Amount != 0)
+
+                {
+                    return BadRequest("amount is zero");
+                }
+
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_INSERT_SERVICE);
+                await _productService.InsertAsync(productMutation);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_INSERT_SERVICE_ERROR);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] ProductMutation productMutation)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(id.ToString()))
+                {
+                    return BadRequest("id is empty");
+                }
+
+                if (id == 0)
+                {
+                    return BadRequest("id is zero");
+                }
+
+
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_UPDATE_SERVICE);
+                await _productService.UpdateAsync(id, productMutation);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_UPDATE_SERVICE_ERROR);
+                return StatusCode(500);
+            }
         }
     }
 }
