@@ -28,12 +28,7 @@ namespace LemonadeStand.Controllers
 
             try
             {
-                var isSuccessful = await _orderService.InsertOrderAsync(order);
-
-                if (!isSuccessful)
-                {
-                    return BadRequest();
-                }
+                var orderId = await _orderService.InsertOrderAsync(order);
             }
             catch (Exception ex)
             {

@@ -26,22 +26,22 @@ namespace LemonadeStand.Services
             _lineItemService = lineItemService;
 		}
 
-        public async Task<bool> InsertOrderAsync(Order order)
+        public async Task<int> InsertOrderAsync(Order order)
         {
-            var isSuccessful = false;
+            var orderId = 0;
             try
             {
                 Guard.IsNotNull(order, nameof(order));
-                var orderId = await _orderRepository.InsertOrderAsync(
+                orderId = await _orderRepository.InsertOrderAsync(
                     _autoMapper.Map<LemonadeStand.Abstractions.Entities.Order>(order));
-                isSuccessful = true;
+                return orderId;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ORDERSERVICE_INSERT_ERROR_MESSAGE, ex.Message);
+                return 0;
             }
 
-            return isSuccessful;
         }
 
         public async Task<IEnumerable<Order>> GetOrdersAsync()

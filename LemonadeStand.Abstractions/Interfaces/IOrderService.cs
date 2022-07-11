@@ -4,7 +4,7 @@ namespace LemonadeStand.Abstractions.Interfaces
 {
 	public interface IOrderService
 	{
-		Task<bool> InsertOrderAsync(Order order);
+		Task<int> InsertOrderAsync(Order order);
 		Task<IEnumerable<Order>> GetOrdersAsync();
 	}
 }
