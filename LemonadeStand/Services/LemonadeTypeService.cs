@@ -56,13 +56,14 @@ namespace LemonadeStand.Services
             return _mapper.Map<IEnumerable<LemonadeType>>(oReturn);
         }
 
-        public async Task<LemonadeType> GetByIdAsync(int id)
+        public async Task<LemonadeType?> GetByIdAsync(int id)
         {
             try
             {
                 Guard.IsNotEqualTo<int>(id, 0, nameof(id));
                 _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_GETBYID_SERVICE);
-                var oModel= await _lemonadeTypeRepository.GetByIdAsync(id);
+                var oModel = await _lemonadeTypeRepository.GetByIdAsync(id);
+                Guard.IsNotNull(oModel, nameof(oModel));
                 return _mapper.Map<LemonadeType>(oModel);
             }
             catch (Exception ex)

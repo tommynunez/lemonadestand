@@ -20,7 +20,7 @@ namespace LemonadeStand.Graphql.Queries
             return new List<Product>();
         }
 
-        public async Task<Product> RetrieveProductById([Service] IProductService _productService, int id)
+        public async Task<Product?> RetrieveProductById([Service] IProductService _productService, int id)
         {
             var oProduct = new Product();
             try

@@ -1,12 +1,13 @@
 ﻿using LemonadeStand.Abstractions.Interfaces;
 using LemonadeStand.Abstractions.Models;
+using Microsoft.Toolkit.Diagnostics;
 
 namespace LemonadeStand.Graphql.Queries
 {
     [ExtendObjectType("Query")]
     public class LemonadeTypeQuery
     {
-        public async Task<LemonadeType> RetrieveLemonadeTypeById([Service] ILemonadeTypeService _lemonadeTypeService, int id)
+        public async Task<LemonadeType?> RetrieveLemonadeTypeById([Service] ILemonadeTypeService _lemonadeTypeService, int id)
         {
             var oLemoandeType = new LemonadeType();
             try

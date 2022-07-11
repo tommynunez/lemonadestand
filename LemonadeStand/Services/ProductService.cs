@@ -49,6 +49,7 @@ namespace LemonadeStand.Services
                 Guard.IsNotEqualTo<int>(id, 0, nameof(id));
                 _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_GETBYID_SERVICE);
                 var oModel = await _productRepository.GetByIdAsync(id);
+                Guard.IsNotNull(oModel, nameof(oModel));
                 return _mapper.Map<Product>(oModel);
             }
             catch (Exception ex)

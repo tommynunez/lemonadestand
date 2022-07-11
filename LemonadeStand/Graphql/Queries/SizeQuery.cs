@@ -7,7 +7,7 @@ namespace LemonadeStand.Graphql.Queries
     [ExtendObjectType("Query")]
     public class SizeQuery
     {
-        public async Task<Size> RetrieveSizeTypeById([Service] ISizeService _sizeService, int id)
+        public async Task<Size?> RetrieveSizeTypeById([Service] ISizeService _sizeService, int id)
         {
             var oSize = new Size();
             try
