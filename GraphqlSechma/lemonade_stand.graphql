@@ -34,12 +34,12 @@ directive @stream(
 ) on FIELD
 
 type Query {
-  retrieveLemonadeTypeById(id: Int!): LemonadeType!
+  retrieveLemonadeTypeById(id: Int!): LemonadeType
   retrieveAllLemonadeTypes: [LemonadeType!]!
   products: [Product!]!
-  retrieveProductById(id: Int!): Product!
+  retrieveProductById(id: Int!): Product
   retrieveOrders: [Order!]!
-  retrieveSizeTypeById(id: Int!): Size!
+  retrieveSizeTypeById(id: Int!): Size
   retrieveAllSizes: [Size!]!
 }
 
@@ -47,7 +47,7 @@ type Mutation {
   insertLemonadeType(lemonadeType: LemonadeTypeInput!): Boolean!
   updateLemonadeType(id: Int!, lemonadeType: LemonadeTypeInput!): Boolean!
   deleteLemonadeType(id: Int!): Boolean!
-  insertOrder(order: OrderInput!): Boolean!
+  insertOrder(order: OrderInput!): Int!
   insertSize(size: SizeInput!): Boolean!
   updateSize(id: Int!, size: SizeInput!): Boolean!
   deleteSize(id: Int!): Boolean!
@@ -57,8 +57,8 @@ type Mutation {
 }
 
 type Size {
-  id: Int!
-  name: String!
+  id: Int
+  name: String
 }
 
 type Order {
@@ -72,15 +72,15 @@ type Order {
 }
 
 type Product {
-  id: Int!
-  size: Size!
-  lemonadeType: LemonadeType!
-  amount: Float!
+  id: Int
+  size: Size
+  lemonadeType: LemonadeType
+  amount: Float
 }
 
 type LemonadeType {
   id: Int!
-  name: String!
+  name: String
 }
 
 input ProductMutationInput {
@@ -91,8 +91,8 @@ input ProductMutationInput {
 }
 
 input SizeInput {
-  id: Int!
-  name: String!
+  id: Int
+  name: String
 }
 
 input OrderInput {
@@ -107,7 +107,7 @@ input OrderInput {
 
 input LemonadeTypeInput {
   id: Int!
-  name: String!
+  name: String
 }
 
 input LineItemInput {
@@ -125,8 +125,8 @@ type LineItem {
 }
 
 input ProductInput {
-  id: Int!
-  size: SizeInput!
-  lemonadeType: LemonadeTypeInput!
-  amount: Float!
+  id: Int
+  size: SizeInput
+  lemonadeType: LemonadeTypeInput
+  amount: Float
 }

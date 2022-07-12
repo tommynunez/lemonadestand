@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LemonadeStand.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -127,8 +127,8 @@ namespace LemonadeStand.Migrations
                 columns: new[] { "Id", "Created", "Deleted", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 6, 29, 17, 46, 0, 880, DateTimeKind.Local).AddTicks(9420), null, "Regular Lemonade" },
-                    { 2, new DateTime(2022, 6, 29, 17, 46, 0, 880, DateTimeKind.Local).AddTicks(9430), null, "Pink Lemonade" }
+                    { 1, new DateTime(2022, 7, 11, 18, 48, 33, 937, DateTimeKind.Local).AddTicks(5460), null, "Regular Lemonade" },
+                    { 2, new DateTime(2022, 7, 11, 18, 48, 33, 937, DateTimeKind.Local).AddTicks(5470), null, "Pink Lemonade" }
                 });
 
             migrationBuilder.InsertData(
@@ -136,8 +136,8 @@ namespace LemonadeStand.Migrations
                 columns: new[] { "Id", "Created", "Deleted", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 6, 29, 17, 46, 0, 881, DateTimeKind.Local).AddTicks(820), null, "Regular Size" },
-                    { 2, new DateTime(2022, 6, 29, 17, 46, 0, 881, DateTimeKind.Local).AddTicks(840), null, "LargeSize" }
+                    { 1, new DateTime(2022, 7, 11, 18, 48, 33, 937, DateTimeKind.Local).AddTicks(7040), null, "Regular Size" },
+                    { 2, new DateTime(2022, 7, 11, 18, 48, 33, 937, DateTimeKind.Local).AddTicks(7050), null, "Large Size" }
                 });
 
             migrationBuilder.InsertData(
@@ -145,10 +145,10 @@ namespace LemonadeStand.Migrations
                 columns: new[] { "Id", "Amount", "Created", "Deleted", "LemonadeTypeId", "SizeId" },
                 values: new object[,]
                 {
-                    { 1, 0.75, new DateTime(2022, 6, 29, 17, 46, 0, 881, DateTimeKind.Local).AddTicks(5200), null, 1, 1 },
-                    { 2, 1.5, new DateTime(2022, 6, 29, 17, 46, 0, 881, DateTimeKind.Local).AddTicks(5210), null, 1, 2 },
-                    { 3, 0.75, new DateTime(2022, 6, 29, 17, 46, 0, 881, DateTimeKind.Local).AddTicks(5220), null, 2, 1 },
-                    { 4, 1.5, new DateTime(2022, 6, 29, 17, 46, 0, 881, DateTimeKind.Local).AddTicks(5230), null, 2, 2 }
+                    { 1, 0.75, new DateTime(2022, 7, 11, 18, 48, 33, 938, DateTimeKind.Local).AddTicks(1940), null, 1, 1 },
+                    { 2, 1.5, new DateTime(2022, 7, 11, 18, 48, 33, 938, DateTimeKind.Local).AddTicks(1950), null, 1, 2 },
+                    { 3, 0.75, new DateTime(2022, 7, 11, 18, 48, 33, 938, DateTimeKind.Local).AddTicks(1960), null, 2, 1 },
+                    { 4, 1.5, new DateTime(2022, 7, 11, 18, 48, 33, 938, DateTimeKind.Local).AddTicks(1970), null, 2, 2 }
                 });
 
             migrationBuilder.CreateIndex(

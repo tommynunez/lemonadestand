@@ -42,7 +42,7 @@ namespace LemonadeStand.Data.Configurations
 			}, new Size
             {
 				Id = 2,
-				Name = "LargeSize",
+				Name = "Large Size",
 				Created = DateTime.Now,
 				Udpdated = DateTime.Now
             });
