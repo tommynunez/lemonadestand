@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace LemonadeStand.Abstractions.Extensions
 {
-	public static class RunMigrationsExtensions
-	{
-		public static void AddRunMigrationsExtensions(this IServiceCollection service, IApplicationBuilder app, IConfiguration configuration)
-		{
+    public static class RunMigrationsExtensions
+    {
+        public static void AddRunMigrationsExtensions(this IServiceCollection service, IApplicationBuilder app, IConfiguration configuration)
+        {
             if (Convert.ToBoolean(configuration["RunMigrations"]))
             {
 
@@ -28,17 +29,17 @@ namespace LemonadeStand.Abstractions.Extensions
                             {
                                 Type pl = tProject;
                                 var dbContext = scope.ServiceProvider.GetRequiredService(pl) as DbContext;
-                                //dbContext?.Database.Migrate();
+                                dbContext?.Database.Migrate();
                             }
                             catch (Exception ex)
                             {
-                                
+
                             }
                         }
                     }
                 }
             }
         }
-	}
+    }
 }
 

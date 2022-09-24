@@ -14,6 +14,10 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
+var env = builder.Environment;
+
+configuration.AddJsonFile("appsettings.json", false, true);
+configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true);
 
 // Add services to the containers
 services.AddControllers();
@@ -47,7 +51,7 @@ services.AddSingleton(mapper);
 
 #region Databse Configuration
 services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
+    options.UseSqlServer(builder.Configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
 #endregion
 
 #region Scopes

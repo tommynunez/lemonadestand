@@ -2,11 +2,12 @@
 using LemonadeStand.Abstractions.Entities;
 using LemonadeStand.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
+using LemonadeStand.Abstractions.Interfaces;
 
 namespace LemonadeStand.Data
 {
-	public class DatabaseContext : DbContext
-	{
+    public class DatabaseContext : DbContext, IMigratable
+    {
         public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder =>
         {
         });
@@ -15,7 +16,7 @@ namespace LemonadeStand.Data
         public DbSet<LemonadeType> LemonadeTypes { get; set; }
         public DbSet<LineItem> LineItems { get; set; }
         public DbSet<Order> Orders { get; set; }
-		public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Size> Sizes { get; set; }
 
         public DatabaseContext(DbContextOptions options) : base(options)
