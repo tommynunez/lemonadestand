@@ -16,6 +16,11 @@
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="GraphQL.AspNet" />
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Interfaces\Lemonade\" />
+    <None Remove="Interfaces\LineItem\" />
+    <None Remove="Interfaces\Order\" />
+    <None Remove="Interfaces\Product\" />
+    <None Remove="Interfaces\Size\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -23,6 +28,11 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Struct\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Interfaces\Lemonade\" />
+    <Folder Include="Interfaces\LineItem\" />
+    <Folder Include="Interfaces\Order\" />
+    <Folder Include="Interfaces\Product\" />
+    <Folder Include="Interfaces\Size\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />

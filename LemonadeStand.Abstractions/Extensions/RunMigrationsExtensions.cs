@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.SqlServer;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace LemonadeStand.Abstractions.Extensions
 {
@@ -13,31 +16,40 @@ namespace LemonadeStand.Abstractions.Extensions
         {
             if (Convert.ToBoolean(configuration["RunMigrations"]))
             {
+                IEnumerable<Type> tonnectProjects = RetrieveIMigratableMarkedProjectsInAssembly();
+                CheckListofProjects(app, tonnectProjects);
+            }
+        }
 
-                var tonnectProjects = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(x => x.GetTypes())
-                .Where(x => typeof(IMigratable).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract);
+        private static IEnumerable<Type> RetrieveIMigratableMarkedProjectsInAssembly()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(x => x.GetTypes())
+            .Where(x => typeof(IMigratable).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract);
+        }
 
-
-                foreach (var tProject in tonnectProjects)
+        private static void CheckListofProjects(IApplicationBuilder app, IEnumerable<Type> tonnectProjects)
+        {
+            foreach (var tProject in tonnectProjects)
+            {
+                if (tProject != null)
                 {
-                    if (tProject != null)
-                    {
-                        using (var scope = app.ApplicationServices.CreateScope())
-                        {
-                            try
-                            {
-                                Type pl = tProject;
-                                var dbContext = scope.ServiceProvider.GetRequiredService(pl) as DbContext;
-                                dbContext?.Database.Migrate();
-                            }
-                            catch (Exception ex)
-                            {
-
-                            }
-                        }
-                    }
+                    ExecuteMigtration(app, tProject);
                 }
+            }
+        }
+
+        private static void ExecuteMigtration(IApplicationBuilder app, Type tProject)
+        {
+            try
+            {
+                var scope = app.ApplicationServices.CreateScope();
+                var dbContext = scope.ServiceProvider.GetRequiredService(tProject) as DbContext;
+                dbContext?.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }
