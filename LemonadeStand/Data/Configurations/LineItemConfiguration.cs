@@ -42,7 +42,7 @@ namespace LemonadeStand.Data.Configurations
 				.HasColumnName("Deleted");
 
             builder.HasOne(li => li.Order)
-				.WithMany(x => x.LineItems)
+                .WithMany(x => x.LineItems)
 				.HasForeignKey(x => x.OrderId)
 				.HasConstraintName("ForeignKey_Order_LineItems");
 			builder.HasOne(li => li.Product)

@@ -3,6 +3,8 @@ using LemonadeStand.Abstractions.Entities;
 using LemonadeStand.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using LemonadeStand.Abstractions.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace LemonadeStand.Data
 {
