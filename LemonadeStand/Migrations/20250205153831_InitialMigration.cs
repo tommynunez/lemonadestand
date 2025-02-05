@@ -20,8 +20,8 @@ namespace LemonadeStand.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "varchar(50)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
-                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
+                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
+                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
                     Deleted = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
@@ -40,8 +40,8 @@ namespace LemonadeStand.Migrations
                     Email = table.Column<string>(type: "varchar(75)", nullable: false),
                     Phone = table.Column<string>(type: "varchar(75)", nullable: false),
                     TotalCost = table.Column<double>(type: "REAL", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
-                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
+                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
+                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
                     Deleted = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
@@ -56,8 +56,8 @@ namespace LemonadeStand.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "varchar(50)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
-                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
+                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
+                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
                     Deleted = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
@@ -74,8 +74,8 @@ namespace LemonadeStand.Migrations
                     LemonadeTypeId = table.Column<int>(type: "int", nullable: false),
                     SizeId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<double>(type: "float", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
-                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
+                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
+                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
                     Deleted = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
@@ -105,8 +105,8 @@ namespace LemonadeStand.Migrations
                     OrderId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Cost = table.Column<double>(type: "float", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
-                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getdate()"),
+                    Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
+                    Updated = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "date('now')"),
                     Deleted = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>

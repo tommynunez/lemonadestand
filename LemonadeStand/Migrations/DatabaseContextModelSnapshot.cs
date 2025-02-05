@@ -27,7 +27,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -42,7 +42,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.HasKey("Id");
 
@@ -79,7 +79,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -101,7 +101,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.HasKey("Id");
 
@@ -122,7 +122,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -155,7 +155,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.HasKey("Id");
 
@@ -176,7 +176,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -194,7 +194,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.HasKey("Id");
 
@@ -253,7 +253,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -268,7 +268,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.HasKey("Id");
 
