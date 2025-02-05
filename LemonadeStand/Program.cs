@@ -51,7 +51,7 @@ services.AddSingleton(mapper);
 
 #region Databse Configuration
 services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
+    options.UseSqlite(builder.Configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
 #endregion
 
 #region Scopes

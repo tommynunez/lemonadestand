@@ -31,7 +31,7 @@ namespace LemonadeStand.Data
             {
                 optionsBuilder
                     .UseLoggerFactory(MyLoggerFactory)
-                    .UseSqlServer(Configuration.GetSection("Database:local").Value);
+                    .UseSqlite(Configuration.GetSection("Database:local").Value);
             }
         }
 
