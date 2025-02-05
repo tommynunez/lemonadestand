@@ -8,9 +8,9 @@ namespace LemonadeStand.Data.Configurations
 {
 	public class ProductConfiguration : IEntityTypeConfiguration<Product>
 	{
-        public void Configure(EntityTypeBuilder<Product> builder)
-        {
-            builder.ToTable("Product");
+		public void Configure(EntityTypeBuilder<Product> builder)
+		{
+			builder.ToTable("Product");
 			builder.HasKey(li => li.Id);
 			builder.Property(l => l.LemonadeTypeId)
 				.IsRequired()
@@ -89,6 +89,6 @@ namespace LemonadeStand.Data.Configurations
 				Udpdated = DateTime.Now
 			});
 		}
-    }
+	}
 }
 

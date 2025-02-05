@@ -9,7 +9,6 @@ using LemonadeStand.Graphql.Mutations;
 using LemonadeStand.Graphql.Queries;
 using LemonadeStand.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -28,22 +27,22 @@ services.AddSwaggerGen();
 #region AutoMapper
 var autoMapperconfiguration = new MapperConfiguration(cfg =>
 {
-    cfg.CreateMap<LineItem, LemonadeStand.Abstractions.Entities.LineItem>()
-        //.ForMember(x => x.ProductId, opt => opt.MapFrom(x => x.ProductId))
-        .ReverseMap();
-    cfg.CreateMap<LemonadeType, LemonadeStand.Abstractions.Entities.LemonadeType>()
-        .ReverseMap();
-    cfg.CreateMap<Size, LemonadeStand.Abstractions.Entities.Size>()
-        .ReverseMap();
-    cfg.CreateMap<Order, LemonadeStand.Abstractions.Entities.Order>()
-        //.ForMember(x => x.LineItems, opt => opt.Ignore())
-        .ReverseMap();
-    cfg.CreateMap<Product, LemonadeStand.Abstractions.Entities.Product>()
-        .ForMember(x => x.LemonadeTypes, opt => opt.MapFrom(src => src.LemonadeType))
-        .ForMember(x => x.Sizes, opt => opt.MapFrom(src => src.Size))
-        .ReverseMap();
-    cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
-        .ReverseMap();
+  cfg.CreateMap<LineItem, LemonadeStand.Abstractions.Entities.LineItem>()
+      //.ForMember(x => x.ProductId, opt => opt.MapFrom(x => x.ProductId))
+      .ReverseMap();
+  cfg.CreateMap<LemonadeType, LemonadeStand.Abstractions.Entities.LemonadeType>()
+      .ReverseMap();
+  cfg.CreateMap<Size, LemonadeStand.Abstractions.Entities.Size>()
+      .ReverseMap();
+  cfg.CreateMap<Order, LemonadeStand.Abstractions.Entities.Order>()
+      //.ForMember(x => x.LineItems, opt => opt.Ignore())
+      .ReverseMap();
+  cfg.CreateMap<Product, LemonadeStand.Abstractions.Entities.Product>()
+      .ForMember(x => x.LemonadeTypes, opt => opt.MapFrom(src => src.LemonadeType))
+      .ForMember(x => x.Sizes, opt => opt.MapFrom(src => src.Size))
+      .ReverseMap();
+  cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
+      .ReverseMap();
 });
 IMapper mapper = autoMapperconfiguration.CreateMapper();
 services.AddSingleton(mapper);
@@ -89,13 +88,13 @@ services
 #region CORS
 services.AddCors(options =>
 {
-    options.AddPolicy(name: "CustomPolicy",
-    policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
+  options.AddPolicy(name: "CustomPolicy",
+  policy =>
+  {
+    policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+  });
 });
 #endregion
 
@@ -103,8 +102,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsEnvironment("Local"))
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 #region migrations

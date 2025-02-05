@@ -11,8 +11,8 @@ namespace LemonadeStand.Data.Configurations
 		{
 		}
 
-        public void Configure(EntityTypeBuilder<LemonadeType> builder)
-        {
+		public void Configure(EntityTypeBuilder<LemonadeType> builder)
+		{
 			builder.ToTable("LemonadeType");
 			builder.HasKey(x => x.Id);
 			builder.Property(x => x.Name)
@@ -48,6 +48,6 @@ namespace LemonadeStand.Data.Configurations
 				Udpdated = DateTime.Now
 			});
 		}
-    }
+	}
 }
 

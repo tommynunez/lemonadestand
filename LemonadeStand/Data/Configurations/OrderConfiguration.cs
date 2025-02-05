@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LemonadeStand.Data.Configurations
 {
-    public class OrderConfiguration : IEntityTypeConfiguration<Order>
-    {
-        public void Configure(EntityTypeBuilder<Order> builder)
-        {
+	public class OrderConfiguration : IEntityTypeConfiguration<Order>
+	{
+		public void Configure(EntityTypeBuilder<Order> builder)
+		{
 			builder.ToTable("Order");
 			builder.HasKey(li => li.Id);
 			builder.Property(x => x.FirstName)
@@ -40,6 +40,6 @@ namespace LemonadeStand.Data.Configurations
 				.HasColumnName("Deleted")
 				.HasDefaultValueSql(null);
 		}
-    }
+	}
 }
 

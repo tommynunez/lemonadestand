@@ -10,14 +10,14 @@ namespace LemonadeStand.Data.Configurations
 		{
 		}
 
-        public void Configure(EntityTypeBuilder<Size> builder)
-        {
-            builder.ToTable("Size");
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Name)
-                .IsRequired()
-                .HasColumnType("varchar(50)")
-                .HasColumnName("Name");
+		public void Configure(EntityTypeBuilder<Size> builder)
+		{
+			builder.ToTable("Size");
+			builder.HasKey(x => x.Id);
+			builder.Property(x => x.Name)
+					.IsRequired()
+					.HasColumnType("varchar(50)")
+					.HasColumnName("Name");
 			builder.Property(l => l.Created)
 				.IsRequired()
 				.HasColumnType("datetime")
@@ -40,13 +40,13 @@ namespace LemonadeStand.Data.Configurations
 				Created = DateTime.Now,
 				Udpdated = DateTime.Now
 			}, new Size
-            {
+			{
 				Id = 2,
 				Name = "Large Size",
 				Created = DateTime.Now,
 				Udpdated = DateTime.Now
-            });
+			});
 		}
-    }
+	}
 }
 
