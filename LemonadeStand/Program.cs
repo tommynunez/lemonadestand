@@ -9,6 +9,7 @@ using LemonadeStand.Graphql.Mutations;
 using LemonadeStand.Graphql.Queries;
 using LemonadeStand.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -22,7 +23,10 @@ configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
 services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
+services.AddSwaggerGen(config =>
+  {
+      config.SwaggerDoc("v1", new OpenApiInfo() { Title = "Lemonade Stand API", Version = "v1" });
+  });
 
 #region AutoMapper
 var autoMapperconfiguration = new MapperConfiguration(cfg =>
@@ -103,7 +107,10 @@ var app = builder.Build();
 if (app.Environment.IsEnvironment("Local") || app.Environment.IsEnvironment("Development"))
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(config =>
+    {
+        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Lemonade Stand API");
+    });
 }
 
 #region migrations
