@@ -12,5 +12,5 @@ jobs:
     - name: Build and push
       run: |
         docker login -u ${{ secrets.GH_USERNAME }} --password-stdin ${{ secrets.GH_PAT }} ghcr.io
-        docker built . -t ghcr.io/tommynunez/lemonadestandapi:latest
+        docker build . -t ghcr.io/tommynunez/lemonadestandapi:latest
         docker push ghcr.io/tommynunez/lemonadestandapi:latest
