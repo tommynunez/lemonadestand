@@ -9,8 +9,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build and push
-      run: |
-        echo ${{ secrets.GH_PAT }} | docker login -u ${{ secrets.GH_USERNAME }} --password-stdin
-        docker build . -t ghcr.io/tommynunez/lemonadestandapi:latest
-        docker push ghcr.io/tommynunez/lemonadestandapi:latest
+    - name: Log into GHCR
+      run: echo ${{ secrets.GH_PAT }} | docker login -u ${{ secrets.GH_USERNAME }} --password-stdin
+    - name: Build image
+      run:  docker build . -t ghcr.io/tommynunez/lemonadestandapi:latest
+    - name: Push image to GHCR
+      run:  docker push ghcr.io/tommynunez/lemonadestandapi:latest
