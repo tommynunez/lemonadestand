@@ -12,6 +12,6 @@ jobs:
     - name: Log into GHCR
       run: docker login ghcr.io -u ${{ secrets.GH_USERNAME }} -p ${{ secrets.GH_PAT }}
     - name: Build image
-      run:  docker build . -t ghcr.io/tommynunez/lemonadestandapi:latest
+      run:  docker build -f LemonadeStand/Dockerfile -t ghcr.io/tommynunez/lemonadestandapi:latest
     - name: Push image to GHCR
       run:  docker push ghcr.io/tommynunez/lemonadestandapi:latest
