@@ -1,5 +1,3 @@
-gfh
-
 name: Docker Image CI for GHCR
 
 on:
