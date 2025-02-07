@@ -30,7 +30,7 @@ jobs:
 
     - name: Set Environment Variable
       id: config-environment
-      if: $BRANCH != 'master' ]]
+      if: ${{github.ref_name}} != 'master' ]]
       run: echo "ASPNETCORE_ENVIRONMENT=Development" >> "$GITHUB_ENV"
 
     - name: Build and push Docker image
