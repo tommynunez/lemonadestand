@@ -31,7 +31,7 @@ jobs:
     - name: Set Environment Variable
       id: config-environment
       if: ${{github.ref_name}} != 'master' ]]
-      run: echo "ASPNETCORE_ENVIRONMENT=Development" >> "$GITHUB_ENV"
+      run: echo "ASPNETCORE_ENVIRONMENT=latest" >> "$GITHUB_ENV"
 
     - name: Build and push Docker image
       id: push
@@ -41,3 +41,5 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        build-args: |
+          "ASPNETCORE_ENVIRONMENT=${{ env.ASPNETCORE_ENVIRONMENT }}"
