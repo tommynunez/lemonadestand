@@ -24,11 +24,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GH_PAT }}
 
-    - name: Set Build Number Environment Variable
-      run: |
-        echo "BUILD_NUMBER=$((${{ steps.meta.outputs.tags }}.${{ github.run_number }}-${{github.ref_name}}))" 
-        echo $BUILD_NUMBER
-
     - name: Build and push Docker image
       id: push
       uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
