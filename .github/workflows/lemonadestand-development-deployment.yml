@@ -36,7 +36,7 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{var.VERSION_NUMBER}}${{ github.run_number }}-${{github.ref_name}},
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{vars.VERSION_NUMBER}}${{ github.run_number }}-${{github.ref_name}},
           ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
