@@ -16,24 +16,28 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Log in to the Container registry
-      uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GH_PAT }}
+    #- name: Log in to the Container registry
+    #  uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+    #  with:
+    #    registry: ${{ env.REGISTRY }}
+    #    username: ${{ github.actor }}
+    #    password: ${{ secrets.GH_PAT }}
 
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@v5
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+    #- name: Extract metadata (tags, labels) for Docker
+    #  id: meta
+    #  uses: docker/metadata-action@v5
+    #  with:
+    #    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-    - name: Build and push Docker image
-      id: push
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+    #- name: Build and push Docker image
+    #  id: push
+    #  uses: docker/build-push-action@v6
+    #  with:
+    #    context: .
+    #    push: true
+    #    tags: ${{ steps.meta.outputs.tags }}
+    #    labels: ${{ steps.meta.outputs.labels }}
+    
+    - name: Output stuff 
+      id: output
+      run: echo ${{ steps.meta.outputs.tags }}
