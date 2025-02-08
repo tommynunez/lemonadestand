@@ -46,5 +46,5 @@ jobs:
         build-args: |
           "ASPNETCORE_ENVIRONMENT=${{ vars.ASPNETCORE_ENVIRONMENT }}"
 
-    - name: Display ENV
-      run: echo ${{ steps.meta.outputs.tags }}
+    #- name: Display ENV
+    #  run: echo ${{ steps.meta.outputs.tags }}
