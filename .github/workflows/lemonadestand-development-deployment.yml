@@ -39,4 +39,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
-          "ASPNETCORE_ENVIRONMENT=Development"
+          "ASPNETCORE_ENVIRONMENT=${{ env.ASPNETCORE_ENVIRONMENT }}"
+
+    - name: Display ENV
+      run: echo ${{ env.ASPNETCORE_ENVIRONMENT }}
