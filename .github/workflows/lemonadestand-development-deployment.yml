@@ -33,7 +33,7 @@ jobs:
 
     - name: Set Build Number Environment Variable
       run: |
-        echo "BUILD_NUMBER=$((${{github.ref_name}}.${{ github.run_number }}))" 
+        echo "BUILD_NUMBER=$((${{ steps.meta.outputs.tags }}.${{ github.run_number }}-${{github.ref_name}}))" 
         echo $BUILD_NUMBER
 
     - name: Build and push Docker image
