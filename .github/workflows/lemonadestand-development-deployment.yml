@@ -42,4 +42,4 @@ jobs:
           "ASPNETCORE_ENVIRONMENT=${{ vars.ASPNETCORE_ENVIRONMENT }}"
 
     - name: Display ENV
-      run: echo ${{ vars.ASPNETCORE_ENVIRONMENT }}
+      run: echo ${{ steps.meta.outputs.tags }}
