@@ -24,13 +24,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GH_PAT }}
 
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: type=semver,pattern={{version}},value=v1.0.0
-
     - name: Set Build Number Environment Variable
       run: |
         echo "BUILD_NUMBER=$((${{ steps.meta.outputs.tags }}.${{ github.run_number }}-${{github.ref_name}}))" 
@@ -42,7 +35,9 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ steps.meta.outputs.tags }}.${{ github.run_number }}-${{github.ref_name}}
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{var.VERSION_NUMBER}}${{ github.run_number }}-${{github.ref_name}},
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
           "ASPNETCORE_ENVIRONMENT=${{ vars.ASPNETCORE_ENVIRONMENT }}"
