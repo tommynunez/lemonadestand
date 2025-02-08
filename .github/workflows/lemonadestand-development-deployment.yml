@@ -31,13 +31,13 @@ jobs:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: |
           # minimal
-          type=semver,pattern={{raw}}
+          type=semver,pattern={{version}}
           # use custom value instead of git tag
-          type=semver,pattern={{raw}},value=v1.0.0
+          type=semver,pattern={{version}},value=v1.0.0
 
     - name: Set Build Number Environment Variable
       run: |
-        echo "BUILD_NUMBER=$((${{github.ref_name}}.${{ github.run_number }}.${{ github.run_id }}))" 
+        echo "BUILD_NUMBER=$((${{github.ref_name}}.${{ github.run_number }}))" 
         echo $BUILD_NUMBER
 
     - name: Build and push Docker image
@@ -46,7 +46,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
+        tags: ${{ steps.meta.outputs.tags }}.${{ github.run_number }}-${{github.ref_name}}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
           "ASPNETCORE_ENVIRONMENT=${{ vars.ASPNETCORE_ENVIRONMENT }}"
