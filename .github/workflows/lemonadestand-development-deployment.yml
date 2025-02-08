@@ -9,7 +9,7 @@ env:
 
 jobs:
   build_and_publish:
-    environment: ${{ github.ref_name == 'master' && 'production' || 'local' }}
+    environment: ${{ github.ref_name == 'master' && 'production' || 'development' }}
 
     runs-on: ubuntu-latest
 
