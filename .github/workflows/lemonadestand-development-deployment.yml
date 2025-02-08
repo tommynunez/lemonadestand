@@ -29,6 +29,13 @@ jobs:
       uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          # branch event
+          type=ref,enable=true,priority=600,prefix=,suffix=,event=branch
+          # tag event
+          type=ref,enable=true,priority=600,prefix=,suffix=,event=tag
+          # pull request event
+          type=ref,enable=true,priority=600,prefix=pr-,suffix=,event=pr
 
     - name: Build and push Docker image
       id: push
