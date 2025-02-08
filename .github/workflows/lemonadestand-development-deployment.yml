@@ -9,8 +9,8 @@ env:
 
 jobs:
   build_and_publish:
+    environment: ${{ github.ref_name == 'master' && 'Production' || 'Development' }}
 
-    environment: Development
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +39,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
-          "ASPNETCORE_ENVIRONMENT=${{ vars.ASPNETCORE_ENVIRONMENT }}"
+          "ASPNETCORE_ENVIRONMENT=${{ env.ASPNETCORE_ENVIRONMENT }}"
 
     - name: Display ENV
-      run: echo ${{ vars.ASPNETCORE_ENVIRONMENT }}
+      run: echo ${{ env.ASPNETCORE_ENVIRONMENT }}
