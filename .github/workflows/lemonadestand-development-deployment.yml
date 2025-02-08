@@ -40,4 +40,4 @@ jobs:
     
     - name: Output stuff 
       id: output
-      run: echo ${{ steps.meta.outputs.tags }}
+      run: echo ${{ steps.meta.outputs }}
