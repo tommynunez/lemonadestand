@@ -36,7 +36,7 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ env.REGISTRY }}/lemonadestand:${{vars.VERSION_NUMBER}}.${{ github.run_number }}-${{github.ref_name}},
+          ${{ env.REGISTRY }}/lemonadestand:${{vars.VERSION_NUMBER}}.${{ github.run_number }}.${{github.ref_name}},
           ${{ env.REGISTRY }}/lemonadestand:latest
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
