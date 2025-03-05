@@ -13,6 +13,22 @@
         "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
       },
       "project": "LemonadeStand.csproj"
+    },
+    {
+      "type": "DotNetWatch",
+      "request": "launch",
+      "name": ".NET Core Watch: LemonadeStand Identity",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
+      },
+      "project": "LemonadeStand.IdentityServer.csproj"
     }
-  ]
+  ],
+  "compounds": [
+        {
+            "name": "Server/Client",
+            "configurations": [".NET Core Watch: LemonadeStand", ".NET Core Watch: LemonadeStand Identity"]
+        }
+    ]
 }
