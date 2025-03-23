@@ -5,30 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "DotNetWatch",
+      "name": "C#: LemonadeStand",
+      "type": "dotnet",
       "request": "launch",
-      "name": ".NET Core Watch: LemonadeStand",
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
-      },
-      "project": "LemonadeStand.csproj"
-    },
-    {
-      "type": "DotNetWatch",
-      "request": "launch",
-      "name": ".NET Core Watch: LemonadeStand Identity",
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
-      },
-      "project": "LemonadeStand.IdentityServer.csproj"
+      "projectPath": "${workspaceFolder}/LemonadeStand/LemonadeStand.csproj",
+      "launchConfigurationId": "TargetFramework=;LemonadeStand"
     }
-  ],
-  "compounds": [
-        {
-            "name": "Server/Client",
-            "configurations": [".NET Core Watch: LemonadeStand", ".NET Core Watch: LemonadeStand Identity"]
-        }
-    ]
+  ]
 }
