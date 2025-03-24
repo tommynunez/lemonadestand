@@ -1,12 +1,10 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace LemonadeStand.IdentityServer
 {
   [Route("authentication")]
   [ApiController]
-  public class AuthenticationController
+  public class AuthenticationController : ControllerBase
   {
     public AuthenticationController()
     {
@@ -14,15 +12,9 @@ namespace LemonadeStand.IdentityServer
     }
 
     [HttpPost]
-    public Task<IActionResult> Login()
+    public async Task<IActionResult> Login()
     {
       return Ok();
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> GoogleAuthentication()
-    {
-
     }
   }
 }

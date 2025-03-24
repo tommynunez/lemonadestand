@@ -404,4 +404,5 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
-LemonadeStand/Lemons.db 
+LemonadeStand/Lemons.db
+appsettings.Development.json 

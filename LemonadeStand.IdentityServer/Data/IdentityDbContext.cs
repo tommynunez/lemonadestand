@@ -1,16 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using LemonadeStand.IdentityServer.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using LemonadeStand.IdentityServer.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace LemonadeStand.IdentityServer.Data
 {
-  public class IdentityServerDbContext : IdentityDbContext<AppUser>
+  public class IdentityServerDbContext : IdentityDbContext<AppUser<Guid>, IdentityRole<Guid>, Guid>
   {
-    public IdentityServerDbContext()
+    public IdentityServerDbContext(DbContextOptions<IdentityServerDbContext> options) : base(options)
     {
 
     }
 
-    public override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
 
     }
