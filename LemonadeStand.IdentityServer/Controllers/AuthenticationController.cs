@@ -1,8 +1,12 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace LemonadeStand.IdentityServer
 {
-  public class AuthenticationController : Controller
+  [Route("authentication")]
+  [ApiController]
+  public class AuthenticationController
   {
     public AuthenticationController()
     {
@@ -10,9 +14,9 @@ namespace LemonadeStand.IdentityServer
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login()
+    public Task<IActionResult> Login()
     {
-
+      return Ok();
     }
 
     [HttpPost]

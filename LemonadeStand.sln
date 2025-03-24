@@ -7,11 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand", "LemonadeSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand.Abstractions", "LemonadeStand.Abstractions\LemonadeStand.Abstractions.csproj", "{6F2DBE7F-4157-4B6D-B55B-F304081B3FD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand.BFF", "LemonadeStand.BFF\LemonadeStand.BFF.csproj", "{2D204CA6-0F4E-4FB0-BA28-D013B65999E7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand.IdentityServer", "LemonadeStand.IdentityServer\LemonadeStand.IdentityServer.csproj", "{1FA2EB11-DD84-494A-A605-5F340910761E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand.IdentityServer.Abstractions", "LemonadeStand.IdentityServer.Abstractions\LemonadeStand.IdentityServer.Abstractions.csproj", "{AC399620-8D6C-4FFA-8B9C-227248BFBBA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
