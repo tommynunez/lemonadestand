@@ -15,7 +15,7 @@ namespace LemonadeStand.IdentityServer.Data
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-
+      base.OnModelCreating(builder);
     }
   }
 }

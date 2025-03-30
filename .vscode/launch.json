@@ -5,6 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "C#: LemonadeStand IdentityServer Debug",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}/LemonadeStand.IdentityServer/LemonadeStandIdentityServer.csproj",
+    },
+    {
       "name": "C#: LemonadeStand",
       "type": "dotnet",
       "request": "launch",

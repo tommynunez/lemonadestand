@@ -1,3 +1,4 @@
+using LemonadeStand.IdentityServer.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LemonadeStand.IdentityServer
@@ -6,14 +7,16 @@ namespace LemonadeStand.IdentityServer
   [ApiController]
   public class AuthenticationController : ControllerBase
   {
-    public AuthenticationController()
+    private IAuthenticationService _authenticationService;
+    public AuthenticationController(IAuthenticationService authenticationService)
     {
-
+      _authenticationService = authenticationService;
     }
 
     [HttpPost]
     public async Task<IActionResult> Login()
     {
+      await _authenticationService.Signin();
       return Ok();
     }
   }
