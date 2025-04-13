@@ -14,9 +14,9 @@ namespace LemonadeStand.IdentityServer
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login()
+    public async Task<IActionResult> Login([FromBody] SigninRequest signinRequest)
     {
-      await _authenticationService.Signin();
+      await _authenticationService.Signin(signinRequest.Username, signinRequest.Password);
       return Ok();
     }
   }

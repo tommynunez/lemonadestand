@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using LemonadeStand.IdentityServer.Data;
-using LemonadeStand.IdentityServer.Data.Models;
+using LemonadeStand.IdentityServer.Data.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using LemonadeStand.Abstractions.Extensions;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +19,7 @@ services.AddDbContext<IdentityServerDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("LemoandeStandDatabase")));
 
 //configure identity
-services.AddIdentityCore<AppUser<Guid>>()
+services.AddIdentityCore<AppUser>()
         .AddEntityFrameworkStores<IdentityServerDbContext>();
 
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
