@@ -8,6 +8,8 @@ namespace LemonadeStand.IdentityServer.Data
 {
   public class IdentityServerDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IMigratable
   {
+    public DbSet<AspNetRefreshToken> RefreshTokens { get; set; }
+
     public IdentityServerDbContext(DbContextOptions<IdentityServerDbContext> options) : base(options)
     {
 

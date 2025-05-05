@@ -35,7 +35,7 @@ namespace LemonadeStand.IdentityServer.Services
       ValidateArgs(email, username, password, confirmPassword);
 
       //Step 1: Check if the user exists based on email address 
-      //        If the user is then check whether or no email address
+      //        If the user exists then check whether or no email address
       //        is confirmed. 
       var user = await _userManager.FindByEmailAsync(email);
       if (user is not null)
