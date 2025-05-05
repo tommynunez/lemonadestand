@@ -405,3 +405,4 @@ ASALocalRun/
 .localhistory/
 
 LemonadeStand/Lemons.db 
+/LemonadeStand/appsettings.Development.Local.json
