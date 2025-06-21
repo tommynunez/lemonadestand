@@ -407,3 +407,4 @@ ASALocalRun/
 LemonadeStand/Lemons.db
 LemonadeStand.IdentityServer/appsettings.*.Local.json
 /LemonadeStand/appsettings.Development.Local.json
+/LemonadeStand/appsettings.Local.json
