@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LemondaStand.Identity.Data.Models
 {
-  public class AspNetRefreshToken
+  public class IdentityToken
   {
     [Key]
     public int Id { get; set; }
@@ -17,7 +17,7 @@ namespace LemondaStand.Identity.Data.Models
     public string ReplacedByToken { get; set; }
     public bool IsActive => Revoked == null && !IsExpired;
 
-    public AspNetRefreshToken()
+    public IdentityToken()
     {
       
     }

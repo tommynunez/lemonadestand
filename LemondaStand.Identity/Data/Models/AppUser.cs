@@ -1,17 +1,19 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
+
 namespace LemondaStand.Identity.Data.Models
 {
-  public class AppUser
+  public partial class AppUser : IdentityUser<int>
   {
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string NormalizedPhoneNumber { get; set; }
 
-    public virtual ICollection<AspNetRefreshToken> RefreshTokens {get; set; }
+    public virtual ICollection<IdentityToken> IdentityTokens { get; set; }
 
     public AppUser()
     {
-      RefreshTokens = new List<AspNetRefreshToken>();
+      IdentityTokens = new List<IdentityToken>();
     }
   }
 }

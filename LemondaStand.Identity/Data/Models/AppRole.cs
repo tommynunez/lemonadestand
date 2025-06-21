@@ -2,7 +2,7 @@
 
 namespace LemondaStand.Identity.Data.Models
 {
-  public class AppRole : IdentityRole<int>
+  public partial class AppRole : IdentityRole<int>
   {
   }
 }
