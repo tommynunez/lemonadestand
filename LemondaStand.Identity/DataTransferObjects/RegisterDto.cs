@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LemondaStand.Identity.DataTransferObjects
 {
@@ -13,13 +8,13 @@ namespace LemondaStand.Identity.DataTransferObjects
   {
     [DataMember, Required]
     public string FirstName { get; set; }
-    
+
     [DataMember, Required]
     public string LastName { get; set; }
 
     [DataMember, Required]
-    public string UserName { get; set; }
-    
+    public string Email { get; set; }
+
     [DataMember, Required]
     public string PhoneNumber { get; set; }
 

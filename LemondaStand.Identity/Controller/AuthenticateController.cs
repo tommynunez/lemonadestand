@@ -125,7 +125,6 @@ namespace LemondaStand.Identity.Controller
 
     [Route("logout")]
     [HttpPost]
-    [Authorize]
     public async Task<ActionResult> Logout()
     {
       Request.Cookies.TryGetValue("session", out string requestToken);
@@ -150,6 +149,150 @@ namespace LemondaStand.Identity.Controller
       token.RevokedByIp = GetIpAddress();
       _identityDatabaseContext.Update(user);
       _identityDatabaseContext.SaveChanges();
+      return Ok();
+    }
+
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("register")]
+    public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      var user = await _userManager.FindByEmailAsync(registerDto.Email);
+
+      if (user is null)
+      {
+        var oModel = _mapper.Map<AppUser>(registerDto);
+        var result = await _userManager.CreateAsync(oModel, registerDto.Password);
+
+        if (!result.Succeeded)
+        {
+          var stringBuilder = new StringBuilder();
+          foreach (var error in result.Errors)
+          {
+            stringBuilder.AppendLine(error.Description);
+          }
+
+          return BadRequest(new { errorMessage = stringBuilder.ToString() });
+        }
+
+        user = await _userManager.FindByEmailAsync(registerDto.Email);
+        var generatedToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        string tokenUrl = Url.Action(
+          "EmailConfirmation",
+          "Authenticate",
+          new { token = generatedToken, email = user.Email }, Request.Scheme);
+
+        // todo: send confirmation link via email
+#if DEBUG
+        return StatusCode(201, new { username = user.Email, token = generatedToken, tokenUrl });
+#else 
+        return StatusCode(201);
+#endif
+      }
+      return StatusCode(302);
+    }
+
+    [AllowAnonymous]
+    [Route("email/confirmation")]
+    [HttpGet]
+    public async Task<ActionResult> EmailConfirmation([FromQuery] ConfirmationEmailDto confirmationEmailDto)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      var user = await _userManager.FindByEmailAsync(confirmationEmailDto.Email);
+      if (user is null)
+      {
+        return NotFound("User not found.");
+      }
+
+      var result = await _userManager.ConfirmEmailAsync(user, confirmationEmailDto.Token);
+      if (!result.Succeeded)
+      {
+        var stringBuilder = new StringBuilder();
+        foreach (var error in result.Errors)
+        {
+          stringBuilder.AppendLine(error.Description);
+        }
+        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        //todo: send confirmation link via email
+        return StatusCode(419, new { errorMessage = "Email confirmation token expired" });
+      }
+
+      return Ok();
+    }
+
+    [AllowAnonymous]
+    [Route("forgot/password")]
+    [HttpPost]
+    public async Task<ActionResult> ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      var user = await _userManager.FindByEmailAsync(forgotPasswordDto.Email);
+      if (user is null)
+      {
+        return NotFound("User not found.");
+      }
+
+      if (!await _userManager.IsEmailConfirmedAsync(user))
+      {
+        //todo: send confirmation link via email
+      }
+
+      var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+      //todo: send reset password link via email
+
+      return Ok();
+    }
+
+    [AllowAnonymous]
+    [Route("reset/password")]
+    [HttpPost]
+    public async Task<ActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
+      if (user is null)
+      {
+        return NotFound("User not found.");
+      }
+
+      var result = await _userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.Password);
+      if (!result.Succeeded)
+      {
+        var stringBuilder = new StringBuilder();
+        foreach (var error in result.Errors)
+        {
+          stringBuilder.AppendLine(error.Description);
+        }
+
+        var passowrdResetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+        //todo: send reset password link via email
+
+        return StatusCode(419, new { errorMessage = "Password reset token expired" });
+      }
+
+      if (await _userManager.IsLockedOutAsync(user))
+      {
+        await _userManager.SetLockoutEndDateAsync(user, DateTime.UtcNow);
+        await _userManager.ResetAccessFailedCountAsync(user);
+      }
+
       return Ok();
     }
 
