@@ -8,6 +8,7 @@ using LemonadeStand.Data.Repositories;
 using LemonadeStand.Graphql.Mutations;
 using LemonadeStand.Graphql.Queries;
 using LemonadeStand.Services;
+using LemondaStand.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -25,28 +26,28 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(config =>
   {
-      config.SwaggerDoc("v1", new OpenApiInfo() { Title = "Lemonade Stand API", Version = "v1" });
+    config.SwaggerDoc("v1", new OpenApiInfo() { Title = "Lemonade Stand API", Version = "v1" });
   });
 
 #region AutoMapper
 var autoMapperconfiguration = new MapperConfiguration(cfg =>
 {
-    cfg.CreateMap<LineItem, LemonadeStand.Abstractions.Entities.LineItem>()
-        //.ForMember(x => x.ProductId, opt => opt.MapFrom(x => x.ProductId))
-        .ReverseMap();
-    cfg.CreateMap<LemonadeType, LemonadeStand.Abstractions.Entities.LemonadeType>()
-        .ReverseMap();
-    cfg.CreateMap<Size, LemonadeStand.Abstractions.Entities.Size>()
-        .ReverseMap();
-    cfg.CreateMap<Order, LemonadeStand.Abstractions.Entities.Order>()
-        //.ForMember(x => x.LineItems, opt => opt.Ignore())
-        .ReverseMap();
-    cfg.CreateMap<Product, LemonadeStand.Abstractions.Entities.Product>()
-        .ForMember(x => x.LemonadeTypes, opt => opt.MapFrom(src => src.LemonadeType))
-        .ForMember(x => x.Sizes, opt => opt.MapFrom(src => src.Size))
-        .ReverseMap();
-    cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
-        .ReverseMap();
+  cfg.CreateMap<LineItem, LemonadeStand.Abstractions.Entities.LineItem>()
+      //.ForMember(x => x.ProductId, opt => opt.MapFrom(x => x.ProductId))
+      .ReverseMap();
+  cfg.CreateMap<LemonadeType, LemonadeStand.Abstractions.Entities.LemonadeType>()
+      .ReverseMap();
+  cfg.CreateMap<Size, LemonadeStand.Abstractions.Entities.Size>()
+      .ReverseMap();
+  cfg.CreateMap<Order, LemonadeStand.Abstractions.Entities.Order>()
+      //.ForMember(x => x.LineItems, opt => opt.Ignore())
+      .ReverseMap();
+  cfg.CreateMap<Product, LemonadeStand.Abstractions.Entities.Product>()
+      .ForMember(x => x.LemonadeTypes, opt => opt.MapFrom(src => src.LemonadeType))
+      .ForMember(x => x.Sizes, opt => opt.MapFrom(src => src.Size))
+      .ReverseMap();
+  cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
+      .ReverseMap();
 });
 IMapper mapper = autoMapperconfiguration.CreateMapper();
 services.AddSingleton(mapper);
@@ -54,7 +55,10 @@ services.AddSingleton(mapper);
 
 #region Databse Configuration
 services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlite(builder.Configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
+  options.UseSqlServer(builder.Configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
+
+services.AddDbContext<IdentityDatabaseContext>(options =>
+  options.UseSqlServer(builder.Configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
 #endregion
 
 #region Scopes
@@ -92,13 +96,13 @@ services
 #region CORS
 services.AddCors(options =>
 {
-    options.AddPolicy(name: "CustomPolicy",
-    policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
+  options.AddPolicy(name: "CustomPolicy",
+  policy =>
+  {
+    policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+  });
 });
 #endregion
 
@@ -106,11 +110,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsEnvironment("Local") || app.Environment.IsEnvironment("Development"))
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(config =>
-    {
-        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Lemonade Stand API");
-    });
+  app.UseSwagger();
+  app.UseSwaggerUI(config =>
+  {
+    config.SwaggerEndpoint("/swagger/v1/swagger.json", "Lemonade Stand API");
+  });
 }
 
 #region migrations

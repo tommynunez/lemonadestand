@@ -1,10 +1,8 @@
 ﻿using LemonadeStand.Abstractions.Interfaces;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace LemonadeStand.Abstractions.Extensions
 {
@@ -32,12 +30,12 @@ namespace LemonadeStand.Abstractions.Extensions
       {
         if (tProject != null)
         {
-          ExecuteMigtration(app, tProject);
+          ExecuteMigration(app, tProject);
         }
       }
     }
 
-    private static void ExecuteMigtration(IApplicationBuilder app, Type tProject)
+    private static void ExecuteMigration(IApplicationBuilder app, Type tProject)
     {
       try
       {
