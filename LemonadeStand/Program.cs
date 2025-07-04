@@ -18,7 +18,7 @@ var configuration = builder.Configuration;
 var env = builder.Environment;
 
 configuration.AddJsonFile("appsettings.json", false, true);
-configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true);
+configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
 
 // Add services to the containers
 services.AddControllers();
@@ -55,10 +55,12 @@ services.AddSingleton(mapper);
 
 #region Databse Configuration
 services.AddDbContext<DatabaseContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
+  options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase")), ServiceLifetime.Transient);
 
 services.AddDbContext<IdentityDatabaseContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
+  options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase"),
+    b => b.MigrationsAssembly("LemonadeStand")), 
+    ServiceLifetime.Transient);
 #endregion
 
 #region Scopes

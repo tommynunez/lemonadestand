@@ -27,7 +27,7 @@ namespace LemondaStand.Identity.Data
       {
         optionsBuilder
           .UseLoggerFactory(loggerFactory)
-          .UseSqlServer(Configuration?.GetSection("IdentityDatabase:Local").Value);
+          .UseSqlServer(Configuration?.GetConnectionString("LemonadeStandDatabase"), b => b.MigrationsAssembly("LemonadeStand"));
       }
     }
 

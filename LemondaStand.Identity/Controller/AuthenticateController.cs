@@ -329,7 +329,7 @@ namespace LemondaStand.Identity.Controller
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public string GenerateJwtToken(AppUser apperUser, out DateTime now)
+    private string GenerateJwtToken(AppUser apperUser, out DateTime now)
     {
       now = DateTime.UtcNow;
       var tokenHandler = new JwtSecurityTokenHandler();

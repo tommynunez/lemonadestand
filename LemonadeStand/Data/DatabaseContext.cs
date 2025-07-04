@@ -29,7 +29,7 @@ namespace LemonadeStand.Data
       {
         optionsBuilder
             .UseLoggerFactory(MyLoggerFactory)
-            .UseSqlite(Configuration.GetSection("Database:local").Value);
+            .UseSqlServer(Configuration.GetConnectionString("LemonadeStandDatabase"));
       }
     }
 
