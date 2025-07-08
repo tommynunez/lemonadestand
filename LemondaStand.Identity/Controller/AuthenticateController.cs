@@ -41,7 +41,7 @@ namespace LemondaStand.Identity.Controller
     }
 
     [AllowAnonymous]
-    [Route("Login")]
+    [Route("login")]
     [HttpPost]
     public async Task<ActionResult> Login([FromBody] SigninDto signinDto)
     {

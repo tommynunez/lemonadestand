@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Infisical.Sdk;
+using Infisical.Sdk.Model;
 using LemonadeStand.Abstractions.Extensions;
 using LemonadeStand.Abstractions.Interfaces;
 using LemonadeStand.Abstractions.Models;
@@ -19,6 +21,34 @@ var env = builder.Environment;
 
 configuration.AddJsonFile("appsettings.json", false, true);
 configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
+services.Configure<InfisicalSdkSettings>(configuration.GetSection("Infisical"));
+
+var settings = new InfisicalSdkSettingsBuilder().Build();
+var infisicalClient = new InfisicalClient(settings);
+
+var clientId = configuration.GetValue<string>("Infisical:ClientId");
+var clientSecret = configuration.GetValue<string>("Infisical:Secret");
+
+if (string.IsNullOrEmpty(clientId))
+{
+  throw new ArgumentNullException(nameof(clientId), "Infisical:ClientId configuration value is missing or null.");
+}
+
+if (string.IsNullOrEmpty(clientSecret))
+{
+  throw new ArgumentNullException(nameof(clientSecret), "Infisical:Secret configuration value is missing or null.");
+}
+
+await infisicalClient.Auth().UniversalAuth().LoginAsync(clientId, clientSecret);
+
+var options = new ListSecretsOptions
+{
+  SetSecretsAsEnvironmentVariables = true,
+  SecretPath = "/",
+  ProjectId = "4cca8350-a692-4bee-92fe-277c37ec3384",
+};
+
+var secrets = infisicalClient.Secrets().ListAsync(options).Result;
 
 // Add services to the containers
 services.AddControllers();
@@ -59,7 +89,7 @@ services.AddDbContext<DatabaseContext>(options =>
 
 services.AddDbContext<IdentityDatabaseContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase"),
-    b => b.MigrationsAssembly("LemonadeStand")), 
+    b => b.MigrationsAssembly("LemonadeStand")),
     ServiceLifetime.Transient);
 #endregion
 
