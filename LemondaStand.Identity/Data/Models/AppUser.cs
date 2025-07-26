@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
 
-namespace LemondaStand.Identity.Data.Models
+namespace LemonadeStand.Identity.Data.Models
 {
   public partial class AppUser : IdentityUser<int>
   {

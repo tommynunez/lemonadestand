@@ -1,11 +1,11 @@
 ﻿using LemonadeStand.Abstractions.Interfaces;
-using LemondaStand.Identity.Data.Models;
+using LemonadeStand.Identity.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace LemondaStand.Identity.Data
+namespace LemonadeStand.Identity.Data
 {
   public class IdentityDatabaseContext : IdentityDbContext<AppUser, AppRole, int>, IMigratable
   {

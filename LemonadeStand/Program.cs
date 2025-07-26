@@ -7,8 +7,11 @@ using LemonadeStand.Data;
 using LemonadeStand.Data.Repositories;
 using LemonadeStand.Graphql.Mutations;
 using LemonadeStand.Graphql.Queries;
+using LemonadeStand.Identity.Data;
+using LemonadeStand.Identity.Data.Models;
 using LemonadeStand.Services;
-using LemondaStand.Identity.Data;
+using LemondaStand.Identity;
+using LemondaStand.Identity.DataTransferObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -48,6 +51,8 @@ var autoMapperconfiguration = new MapperConfiguration(cfg =>
       .ReverseMap();
   cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
       .ReverseMap();
+  cfg.CreateMap<RegisterDto, AppUser>()
+      .ReverseMap();
 });
 IMapper mapper = autoMapperconfiguration.CreateMapper();
 services.AddSingleton(mapper);
@@ -56,11 +61,6 @@ services.AddSingleton(mapper);
 #region Databse Configuration
 services.AddDbContext<DatabaseContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase")), ServiceLifetime.Transient);
-
-services.AddDbContext<IdentityDatabaseContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase"),
-    b => b.MigrationsAssembly("LemonadeStand")), 
-    ServiceLifetime.Transient);
 #endregion
 
 #region Scopes
@@ -78,6 +78,10 @@ services.AddScoped<ILemonadeTypeRepository, LemonadeTypeRepository>();
 services.AddScoped<ISizeRepository, SizeRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<IProductRepository, ProductRepository>();
+#endregion
+
+#region Other Project Services
+services.AddIdentityService(configuration);
 #endregion
 
 #region Graphql

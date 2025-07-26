@@ -68,6 +68,6 @@
     <ProjectReference Include="..\LemonadeStand.Abstractions\LemonadeStand.Abstractions.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\LemondaStand.Identity\LemondaStand.Identity.csproj" />
+    <ProjectReference Include="..\LemondaStand.Identity\LemonadeStand.Identity.csproj" />
   </ItemGroup>
 </Project>

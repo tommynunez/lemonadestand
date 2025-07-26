@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using LemondaStand.Identity.Data;
-using LemondaStand.Identity.Data.Models;
 using LemondaStand.Identity.DataTransferObjects;
+using LemonadeStand.Identity.Data;
+using LemonadeStand.Identity.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -9,25 +9,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System.Data.Entity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
-namespace LemondaStand.Identity.Controller
+namespace LemonadeStand.Identity.Controller
 {
+  interface IAuthenticationController
+  {
+    Task<ActionResult> Login([FromBody] SigninDto signinDto);
+    Task<ActionResult> Logout();
+    Task<ActionResult> Register([FromBody] RegisterDto registerDto);
+    Task<ActionResult> EmailConfirmation([FromQuery] ConfirmationEmailDto confirmationEmailDto);
+    Task<ActionResult> ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto);
+    Task<ActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto);
+  }
+
   [Authorize]
   [ApiController]
   [Route("api/[controller]")]
-  public class AuthenticateController : ControllerBase
+  public class AuthenticationController : ControllerBase, IAuthenticationController
   {
-    private readonly ILogger<AuthenticateController> _logger;
+    private readonly ILogger<AuthenticationController> _logger;
     private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
     private readonly IConfiguration _configuration;
     private readonly IdentityDatabaseContext _identityDatabaseContext;
 
-    public AuthenticateController(ILogger<AuthenticateController> logger,
+    public AuthenticationController(ILogger<AuthenticationController> logger,
       IMapper mapper,
       UserManager<AppUser> userManager,
       IConfiguration configuration,
@@ -41,7 +51,7 @@ namespace LemondaStand.Identity.Controller
     }
 
     [AllowAnonymous]
-    [Route("Login")]
+    [Route("login")]
     [HttpPost]
     public async Task<ActionResult> Login([FromBody] SigninDto signinDto)
     {
@@ -51,7 +61,7 @@ namespace LemondaStand.Identity.Controller
       }
 
       var user = await _identityDatabaseContext
-        .Users
+        .AppUser
         .Include(x => x.IdentityTokens)
         .SingleOrDefaultAsync(x => x.NormalizedEmail == signinDto.Email.ToUpperInvariant());
 
@@ -87,7 +97,7 @@ namespace LemondaStand.Identity.Controller
           }
 
           var jwtToken = GenerateJwtToken(user, out DateTime now);
-
+          ing
           SetTokenCookie(jwtToken);
 
           user.IdentityTokens.Add(new IdentityToken
@@ -166,7 +176,15 @@ namespace LemondaStand.Identity.Controller
 
       if (user is null)
       {
-        var oModel = _mapper.Map<AppUser>(registerDto);
+        if(!registerDto.Password.Equals(registerDto.ConfirmedPassword, StringComparison.InvariantCultureIgnoreCase))
+        {
+          return BadRequest(new { errorMessage = "Password must match confirm password" });
+        }
+
+        var oModel = _mapper.Map<RegisterDto, AppUser>(registerDto);
+        oModel.UserName = registerDto.Email;
+        oModel.NormalizedUserName = registerDto.Email.ToUpper();
+        oModel.NormalizedPhoneNumber = registerDto.PhoneNumber;
         var result = await _userManager.CreateAsync(oModel, registerDto.Password);
 
         if (!result.Succeeded)
@@ -184,12 +202,12 @@ namespace LemondaStand.Identity.Controller
         var generatedToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         string tokenUrl = Url.Action(
           "EmailConfirmation",
-          "Authenticate",
+          "Authentication",
           new { token = generatedToken, email = user.Email }, Request.Scheme);
 
         // todo: send confirmation link via email
 #if DEBUG
-        return StatusCode(201, new { username = user.Email, token = generatedToken, tokenUrl });
+        return StatusCode(201, new { username = user.Email, token = generatedToken, url = tokenUrl});
 #else 
         return StatusCode(201);
 #endif

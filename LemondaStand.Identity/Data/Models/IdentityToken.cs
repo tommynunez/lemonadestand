@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace LemondaStand.Identity.Data.Models
+namespace LemonadeStand.Identity.Data.Models
 {
   public class IdentityToken
   {

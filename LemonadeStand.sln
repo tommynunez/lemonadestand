@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand", "LemonadeSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand.Abstractions", "LemonadeStand.Abstractions\LemonadeStand.Abstractions.csproj", "{6F2DBE7F-4157-4B6D-B55B-F304081B3FD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemondaStand.Identity", "LemondaStand.Identity\LemondaStand.Identity.csproj", "{CB0E4BF2-4A49-43FC-91AF-9A43F91370C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand.Identity", "LemondaStand.Identity\LemonadeStand.Identity.csproj", "{CB0E4BF2-4A49-43FC-91AF-9A43F91370C4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand.Communication", "LemonadeStand.Notification\LemonadeStand.Communication.csproj", "{C4E054FB-1873-44FA-A5B8-A6D7DD84629F}"
 EndProject
