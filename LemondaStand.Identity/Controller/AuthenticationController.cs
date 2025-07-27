@@ -101,7 +101,7 @@ namespace LemonadeStand.Identity.Controller
           }
 
           var jwtToken = GenerateJwtToken(user, out DateTime now);
-          ing
+          
           SetTokenCookie(jwtToken);
 
           user.IdentityTokens.Add(new IdentityToken
