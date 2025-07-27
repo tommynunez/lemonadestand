@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Infisical.Sdk;
+using Infisical.Sdk.Model;
 using LemonadeStand.Abstractions.Extensions;
 using LemonadeStand.Abstractions.Interfaces;
 using LemonadeStand.Abstractions.Models;
@@ -7,7 +9,11 @@ using LemonadeStand.Data;
 using LemonadeStand.Data.Repositories;
 using LemonadeStand.Graphql.Mutations;
 using LemonadeStand.Graphql.Queries;
+using LemonadeStand.Identity.Data;
+using LemonadeStand.Identity.Data.Models;
 using LemonadeStand.Services;
+using LemondaStand.Identity;
+using LemondaStand.Identity.DataTransferObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -17,7 +23,35 @@ var configuration = builder.Configuration;
 var env = builder.Environment;
 
 configuration.AddJsonFile("appsettings.json", false, true);
-configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true);
+configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
+services.Configure<InfisicalSdkSettings>(configuration.GetSection("Infisical"));
+
+var settings = new InfisicalSdkSettingsBuilder().Build();
+var infisicalClient = new InfisicalClient(settings);
+
+var clientId = configuration.GetValue<string>("Infisical:ClientId");
+var clientSecret = configuration.GetValue<string>("Infisical:Secret");
+
+if (string.IsNullOrEmpty(clientId))
+{
+  throw new ArgumentNullException(nameof(clientId), "Infisical:ClientId configuration value is missing or null.");
+}
+
+if (string.IsNullOrEmpty(clientSecret))
+{
+  throw new ArgumentNullException(nameof(clientSecret), "Infisical:Secret configuration value is missing or null.");
+}
+
+await infisicalClient.Auth().UniversalAuth().LoginAsync(clientId, clientSecret);
+
+var options = new ListSecretsOptions
+{
+  SetSecretsAsEnvironmentVariables = true,
+  SecretPath = "/",
+  ProjectId = "4cca8350-a692-4bee-92fe-277c37ec3384",
+};
+
+var secrets = infisicalClient.Secrets().ListAsync(options).Result;
 
 // Add services to the containers
 services.AddControllers();
@@ -25,28 +59,30 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(config =>
   {
-      config.SwaggerDoc("v1", new OpenApiInfo() { Title = "Lemonade Stand API", Version = "v1" });
+    config.SwaggerDoc("v1", new OpenApiInfo() { Title = "Lemonade Stand API", Version = "v1" });
   });
 
 #region AutoMapper
 var autoMapperconfiguration = new MapperConfiguration(cfg =>
 {
-    cfg.CreateMap<LineItem, LemonadeStand.Abstractions.Entities.LineItem>()
-        //.ForMember(x => x.ProductId, opt => opt.MapFrom(x => x.ProductId))
-        .ReverseMap();
-    cfg.CreateMap<LemonadeType, LemonadeStand.Abstractions.Entities.LemonadeType>()
-        .ReverseMap();
-    cfg.CreateMap<Size, LemonadeStand.Abstractions.Entities.Size>()
-        .ReverseMap();
-    cfg.CreateMap<Order, LemonadeStand.Abstractions.Entities.Order>()
-        //.ForMember(x => x.LineItems, opt => opt.Ignore())
-        .ReverseMap();
-    cfg.CreateMap<Product, LemonadeStand.Abstractions.Entities.Product>()
-        .ForMember(x => x.LemonadeTypes, opt => opt.MapFrom(src => src.LemonadeType))
-        .ForMember(x => x.Sizes, opt => opt.MapFrom(src => src.Size))
-        .ReverseMap();
-    cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
-        .ReverseMap();
+  cfg.CreateMap<LineItem, LemonadeStand.Abstractions.Entities.LineItem>()
+      //.ForMember(x => x.ProductId, opt => opt.MapFrom(x => x.ProductId))
+      .ReverseMap();
+  cfg.CreateMap<LemonadeType, LemonadeStand.Abstractions.Entities.LemonadeType>()
+      .ReverseMap();
+  cfg.CreateMap<Size, LemonadeStand.Abstractions.Entities.Size>()
+      .ReverseMap();
+  cfg.CreateMap<Order, LemonadeStand.Abstractions.Entities.Order>()
+      //.ForMember(x => x.LineItems, opt => opt.Ignore())
+      .ReverseMap();
+  cfg.CreateMap<Product, LemonadeStand.Abstractions.Entities.Product>()
+      .ForMember(x => x.LemonadeTypes, opt => opt.MapFrom(src => src.LemonadeType))
+      .ForMember(x => x.Sizes, opt => opt.MapFrom(src => src.Size))
+      .ReverseMap();
+  cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
+      .ReverseMap();
+  cfg.CreateMap<RegisterDto, AppUser>()
+      .ReverseMap();
 });
 IMapper mapper = autoMapperconfiguration.CreateMapper();
 services.AddSingleton(mapper);
@@ -54,7 +90,12 @@ services.AddSingleton(mapper);
 
 #region Databse Configuration
 services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlite(builder.Configuration.GetSection("Database:local").Value), ServiceLifetime.Transient);
+  options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase")), ServiceLifetime.Transient);
+
+services.AddDbContext<IdentityDatabaseContext>(options =>
+  options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase"),
+    b => b.MigrationsAssembly("LemonadeStand")),
+    ServiceLifetime.Transient);
 #endregion
 
 #region Scopes
@@ -72,6 +113,10 @@ services.AddScoped<ILemonadeTypeRepository, LemonadeTypeRepository>();
 services.AddScoped<ISizeRepository, SizeRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<IProductRepository, ProductRepository>();
+#endregion
+
+#region Other Project Services
+services.AddIdentityService(configuration);
 #endregion
 
 #region Graphql
@@ -92,13 +137,13 @@ services
 #region CORS
 services.AddCors(options =>
 {
-    options.AddPolicy(name: "CustomPolicy",
-    policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
+  options.AddPolicy(name: "CustomPolicy",
+  policy =>
+  {
+    policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+  });
 });
 #endregion
 
@@ -106,11 +151,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsEnvironment("Local") || app.Environment.IsEnvironment("Development"))
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(config =>
-    {
-        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Lemonade Stand API");
-    });
+  app.UseSwagger();
+  app.UseSwaggerUI(config =>
+  {
+    config.SwaggerEndpoint("/swagger/v1/swagger.json", "Lemonade Stand API");
+  });
 }
 
 #region migrations

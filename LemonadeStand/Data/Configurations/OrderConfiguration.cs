@@ -28,12 +28,12 @@ namespace LemonadeStand.Data.Configurations
 				.IsRequired()
 				.HasColumnType("datetime")
 				.HasColumnName("Created")
-				.HasDefaultValueSql("date('now')")
+				.HasDefaultValueSql("CURRENT_TIMESTAMP")
 				.ValueGeneratedOnAdd();
 			builder.Property(l => l.Udpdated)
 				.HasColumnType("datetime")
 				.HasColumnName("Updated")
-				.HasDefaultValueSql("date('now')")
+				.HasDefaultValueSql("CURRENT_TIMESTAMP")
 				.ValueGeneratedOnAddOrUpdate();
 			builder.Property(l => l.Deleted)
 				.HasColumnType("datetime")

@@ -1,10 +1,8 @@
-﻿using System;
+﻿
 using LemonadeStand.Abstractions.Entities;
+using LemonadeStand.Abstractions.Interfaces;
 using LemonadeStand.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
-using LemonadeStand.Abstractions.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace LemonadeStand.Data
 {
@@ -21,7 +19,7 @@ namespace LemonadeStand.Data
     public DbSet<Product> Products { get; set; }
     public DbSet<Size> Sizes { get; set; }
 
-    public DatabaseContext(DbContextOptions options) : base(options)
+    public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
     }
 
@@ -31,7 +29,7 @@ namespace LemonadeStand.Data
       {
         optionsBuilder
             .UseLoggerFactory(MyLoggerFactory)
-            .UseSqlite(Configuration.GetSection("Database:local").Value);
+            .UseSqlServer(Configuration.GetConnectionString("LemonadeStandDatabase"));
       }
     }
 

@@ -30,7 +30,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -45,7 +45,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
@@ -82,7 +82,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -104,7 +104,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
@@ -125,7 +125,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -158,7 +158,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
@@ -179,7 +179,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -197,7 +197,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
@@ -256,7 +256,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("Created")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime")
@@ -271,7 +271,7 @@ namespace LemonadeStand.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime")
                         .HasColumnName("Updated")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
