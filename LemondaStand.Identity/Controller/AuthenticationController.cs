@@ -69,6 +69,7 @@ namespace LemonadeStand.Identity.Controller
       {
         if (await _userManager.IsLockedOutAsync(user))
         {
+          _logger.LogInformation($"User is locked out.");
           return StatusCode(423, "User account is locked out. Please try again later.");
         }
 
@@ -76,12 +77,15 @@ namespace LemonadeStand.Identity.Controller
         {
           if (!await _userManager.IsEmailConfirmedAsync(user))
           {
+            _logger.LogInformation($"User has not confirmed their email.");
             var generatedToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             string confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = generatedToken }, Request.Scheme);
 
             //todo: send confirmation link via email
             return BadRequest(new { errorMessage = "Email not confirmed. Please check your email for confirmation link." });
           }
+
+          _logger.LogInformation($"User logged in successfully.");
 
           await _userManager.ResetAccessFailedCountAsync(user);
 
@@ -113,16 +117,19 @@ namespace LemonadeStand.Identity.Controller
         }
         else
         {
+          _logger.LogInformation($"Invalid email or password.");
           await _userManager.AccessFailedAsync(user);
           var accessFailedCount = await _userManager.GetAccessFailedCountAsync(user);
           // Replace the following block:
           if (accessFailedCount == 3)
           {
+            _logger.LogInformation($"User account locked out after 3 failed attempts.");
             await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow.AddMinutes(5));
             return StatusCode(423, "User account is locked out. Please try again later.");
           }
           if (accessFailedCount == 5)
           {
+            _logger.LogInformation($"User account locked out after 5 failed attempts.");
             await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow.AddMinutes(15));
             return StatusCode(423, "User account is locked out. Please try again later.");
           }
@@ -189,6 +196,7 @@ namespace LemonadeStand.Identity.Controller
 
         if (!result.Succeeded)
         {
+          _logger.LogError("User registration failed");
           var stringBuilder = new StringBuilder();
           foreach (var error in result.Errors)
           {
@@ -199,6 +207,12 @@ namespace LemonadeStand.Identity.Controller
         }
 
         user = await _userManager.FindByEmailAsync(registerDto.Email);
+        if (user is null) // Ensure user is not null before proceeding
+        {
+          _logger.LogError("User creation succeeded but user retrieval failed.");
+          return StatusCode(500, "An unexpected error occurred.");
+        }
+
         var generatedToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         string tokenUrl = Url.Action(
           "EmailConfirmation",
@@ -266,6 +280,7 @@ namespace LemonadeStand.Identity.Controller
       if (!await _userManager.IsEmailConfirmedAsync(user))
       {
         //todo: send confirmation link via email
+        return BadRequest(new { errorMessage = "Email not confirmed. Please check your email for confirmation link." });
       }
 
       var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -296,6 +311,7 @@ namespace LemonadeStand.Identity.Controller
         var stringBuilder = new StringBuilder();
         foreach (var error in result.Errors)
         {
+          _logger.LogError($"Password reset error: {error.Description}");
           stringBuilder.AppendLine(error.Description);
         }
 
@@ -307,6 +323,7 @@ namespace LemonadeStand.Identity.Controller
 
       if (await _userManager.IsLockedOutAsync(user))
       {
+        _logger.LogInformation($"User was locked out and now is unlocked");
         await _userManager.SetLockoutEndDateAsync(user, DateTime.UtcNow);
         await _userManager.ResetAccessFailedCountAsync(user);
       }
