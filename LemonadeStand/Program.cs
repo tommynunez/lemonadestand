@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Infisical.Sdk;
 using Infisical.Sdk.Model;
+using InfisicalConfiguration;
 using LemonadeStand.Abstractions.Extensions;
 using LemonadeStand.Abstractions.Interfaces;
 using LemonadeStand.Abstractions.Models;
@@ -22,13 +23,6 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var env = builder.Environment;
 
-configuration.AddJsonFile("appsettings.json", false, true);
-configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
-services.Configure<InfisicalSdkSettings>(configuration.GetSection("Infisical"));
-
-var settings = new InfisicalSdkSettingsBuilder().Build();
-var infisicalClient = new InfisicalClient(settings);
-
 var clientId = configuration.GetValue<string>("Infisical:ClientId");
 var clientSecret = configuration.GetValue<string>("Infisical:Secret");
 
@@ -42,16 +36,28 @@ if (string.IsNullOrEmpty(clientSecret))
   throw new ArgumentNullException(nameof(clientSecret), "Infisical:Secret configuration value is missing or null.");
 }
 
-await infisicalClient.Auth().UniversalAuth().LoginAsync(clientId, clientSecret);
+configuration.AddJsonFile("appsettings.json", false, true);
+configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
+services.Configure<InfisicalSdkSettings>(configuration.GetSection("Infisical"));
+configuration.AddInfisical(
+    new InfisicalConfigBuilder()
+        .SetProjectId(configuration.GetValue<string>("Infisical:ProjectId") ?? "")
+        .SetEnvironment(configuration.GetValue<string>("Infisical:EnvironmentSlug") ?? "")
+        .SetSecretPath("/")
+        .SetAuth(
+            new InfisicalAuthBuilder()
+                .SetUniversalAuth(
+                    clientId,
+                    clientSecret
+                )
+                .Build()
+        )
+        .Build()
+)
+.Build();
 
-var options = new ListSecretsOptions
-{
-  SetSecretsAsEnvironmentVariables = true,
-  SecretPath = "/",
-  ProjectId = "4cca8350-a692-4bee-92fe-277c37ec3384",
-};
-
-var secrets = infisicalClient.Secrets().ListAsync(options).Result;
+//format infisical nested secrets to what .Net can understand for having secrets in sections
+//configuration.GetChildren().Where(x => x.Path.Contains("--")).Select(x => x.Path.Replace("--", ":"));
 
 // Add services to the containers
 services.AddControllers();
