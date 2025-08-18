@@ -18,6 +18,7 @@ namespace LemonadeStand.Data
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Size> Sizes { get; set; }
+    public DbSet<Abstractions.Entities.Location> Locations { get; set; }
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
@@ -42,6 +43,7 @@ namespace LemonadeStand.Data
       modelBuilder.ApplyConfiguration(new SizeConfiguration());
       modelBuilder.ApplyConfiguration(new ProductConfiguration());
       modelBuilder.ApplyConfiguration(new OrderConfiguration());
+      modelBuilder.ApplyConfiguration(new LocationConfiguration());
     }
   }
 }

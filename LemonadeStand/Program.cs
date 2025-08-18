@@ -56,9 +56,6 @@ configuration.AddInfisical(
 )
 .Build();
 
-//format infisical nested secrets to what .Net can understand for having secrets in sections
-//configuration.GetChildren().Where(x => x.Path.Contains("--")).Select(x => x.Path.Replace("--", ":"));
-
 // Add services to the containers
 services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -155,7 +152,7 @@ services.AddCors(options =>
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsEnvironment("Local") || app.Environment.IsEnvironment("Development"))
+if (!app.Environment.IsProduction())
 {
   app.UseSwagger();
   app.UseSwaggerUI(config =>
@@ -164,7 +161,7 @@ if (app.Environment.IsEnvironment("Local") || app.Environment.IsEnvironment("Dev
   });
 }
 
-#region migrations
+#region Migrations
 services.AddRunMigrationsExtensions(app, configuration);
 #endregion
 

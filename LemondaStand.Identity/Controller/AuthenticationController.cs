@@ -375,7 +375,7 @@ namespace LemonadeStand.Identity.Controller
           new Claim(JwtRegisteredClaimNames.Email, apperUser.Email ?? String.Empty),
           new Claim(JwtRegisteredClaimNames.Sub, apperUser.Id.ToString() ?? String.Empty),
           new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-          new Claim("id", apperUser.Id.ToString())
+          new Claim(ClaimTypes.NameIdentifier, apperUser.Id.ToString())
         }),
         Issuer = _configuration["Jwt:Issuer"],
         Audience = _configuration["Jwt:Audience"],

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using LemonadeStand.Abstractions.Entities;
 using LemonadeStand.Abstractions.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace LemonadeStand.Data.Repositories
 {
@@ -13,15 +9,18 @@ namespace LemonadeStand.Data.Repositories
   {
     private readonly DatabaseContext _context;
     private readonly ILogger<OrderRepository> _logger;
+    private readonly int _userId;
 
     private const string ORDER_INSERT_MESSAGE = "";
     private const string ORDER_INSERT_ERROR_MESSAGE = "Error Message: {0}";
 
     public OrderRepository(DatabaseContext context,
-        ILogger<OrderRepository> logger)
+        ILogger<OrderRepository> logger,
+        HttpContext httpContext)
     {
       _context = context;
       _logger = logger;
+      _userId = (int)httpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier).First();
     }
 
     public async Task<int> InsertOrderAsync(Order order)
@@ -30,6 +29,7 @@ namespace LemonadeStand.Data.Repositories
       try
       {
         _logger.LogInformation(ORDER_INSERT_MESSAGE);
+        order.UserId = _userId;
         await _context.Orders.AddAsync(order);
         await _context.SaveChangesAsync();
         returnValue = order.Id;

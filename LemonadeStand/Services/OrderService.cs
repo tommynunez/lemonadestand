@@ -16,17 +16,20 @@ namespace LemonadeStand.Services
     private readonly IOrderRepository _orderRepository;
     private readonly ILineItemService _lineItemService;
     private const string ORDERSERVICE_INSERT_ERROR_MESSAGE = "Error Message {0}";
+    private readonly string UserId = "";
 
     public OrderService(IMapper autoMapper,
             ILogger<OrderService> logger,
             IOrderRepository orderRepository,
-            ILineItemService lineItemService
+            ILineItemService lineItemService,
+            IHttpContextAccessor httpContextAccessor
         )
     {
       _autoMapper = autoMapper;
       _logger = logger;
       _orderRepository = orderRepository;
       _lineItemService = lineItemService;
+      UserId = httpContextAccessor.HttpContext.User.Identities.ToString();
     }
 
     public async Task<int> InsertOrderAsync(Order order)
