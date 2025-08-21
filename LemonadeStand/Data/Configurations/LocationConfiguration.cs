@@ -47,7 +47,7 @@ namespace LemonadeStand.Data.Configurations
       builder.Property(lo => lo.UserId)
         .IsRequired()
         .HasColumnType("int")
-        .HasColumnName("Country");
+        .HasColumnName("UserId");
     }
   }
 }

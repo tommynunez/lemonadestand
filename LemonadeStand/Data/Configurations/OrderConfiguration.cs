@@ -9,33 +9,39 @@ namespace LemonadeStand.Data.Configurations
 		public void Configure(EntityTypeBuilder<Order> builder)
 		{
 			builder.ToTable("Order");
-			builder.HasKey(li => li.Id);
-			builder.Property(x => x.FirstName)
+			builder.HasKey(o => o.Id);
+			builder.Property(o => o.GuestId)
+        .HasColumnName("GuestId")
+        .HasColumnType("int");
+      builder.Property(o => o.UserId)
+				.HasColumnName("UserId")
+				.HasColumnType("int");
+			builder.Property(o => o.FirstName)
 				.IsRequired()
 				.HasColumnType("varchar(50)")
 				.HasColumnName("FirstName");
-			builder.Property(x => x.LastName)
+			builder.Property(o => o.LastName)
 				.IsRequired()
 				.HasColumnType("varchar(75)")
 				.HasColumnName("LastName");
-			builder.Property(x => x.Phone)
+			builder.Property(o => o.Phone)
 				.HasColumnType("varchar(75)")
 				.HasColumnName("Phone");
-			builder.Property(x => x.Email)
+			builder.Property(o => o.Email)
 				.HasColumnType("varchar(75)")
 				.HasColumnName("Email");
-			builder.Property(l => l.Created)
+			builder.Property(o => o.Created)
 				.IsRequired()
 				.HasColumnType("datetime")
 				.HasColumnName("Created")
 				.HasDefaultValueSql("CURRENT_TIMESTAMP")
 				.ValueGeneratedOnAdd();
-			builder.Property(l => l.Udpdated)
+			builder.Property(o => o.Udpdated)
 				.HasColumnType("datetime")
 				.HasColumnName("Updated")
 				.HasDefaultValueSql("CURRENT_TIMESTAMP")
 				.ValueGeneratedOnAddOrUpdate();
-			builder.Property(l => l.Deleted)
+			builder.Property(o => o.Deleted)
 				.HasColumnType("datetime")
 				.HasColumnName("Deleted")
 				.HasDefaultValueSql(null);
