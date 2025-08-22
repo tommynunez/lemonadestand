@@ -27,7 +27,6 @@
     <Folder Include="Models\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Struct\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Interfaces\Lemonade\" />
     <Folder Include="Interfaces\LineItem\" />
     <Folder Include="Interfaces\Order\" />

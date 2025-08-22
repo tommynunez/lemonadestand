@@ -1,0 +1,61 @@
+﻿using LemonadeStand.Identity.Data.Models;
+using LemonadeStand.Identity.Options;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
+namespace LemonadeStand.Abstractions.Extensions
+{
+  public static class SeedAdministratorUserExtension
+  {
+    public static void UseSeedAdministratorUserExtension(IServiceProvider serviceProvider, IConfiguration configuration)
+    {
+      var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+      var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
+      var options = serviceProvider.GetRequiredService<IOptions<AdministratorOptions>>();
+      
+      if (options == null)
+      {
+        throw new ArgumentNullException(nameof(options), "Administrator configuration value is missing or null.");
+      }
+      var user = userManager.FindByEmailAsync(options.Value.EmailAddress).Result;
+
+      if (user is null)
+      {
+        var identityResult = userManager.CreateAsync(new AppUser
+        {
+          FirstName = options.Value.FirstName,
+          LastName = options.Value.LastName,
+          Email = options.Value.EmailAddress,
+          UserName = options.Value.UserName,
+          PhoneNumber = options.Value.PhoneNumber,
+          NormalizedUserName = options.Value.UserName.ToUpper(),
+          NormalizedPhoneNumber = options.Value.PhoneNumber.ToUpper()
+        },
+        options.Value.Password).Result;
+
+        if (!identityResult.Succeeded)
+        {
+          throw new Exception($"Failed to create administrator user: {string.Join(", ", identityResult.Errors.Select(e => e.Description))}");
+        }
+      }
+
+      var roleExists = roleManager.RoleExistsAsync("Administrator").Result;
+
+      if (!roleExists)
+      {
+        var role = new IdentityRole<int>
+        {
+          Name = "Administrator",
+          NormalizedName = "ADMINISTRATOR"
+        };
+        var roleCreationResult = roleManager.CreateAsync(role).Result;
+        if (!roleCreationResult.Succeeded)
+        {
+          throw new Exception($"Failed to create Administrator role: {string.Join(", ", roleCreationResult.Errors.Select(e => e.Description))}");
+        }
+      }
+    }
+  }
+}

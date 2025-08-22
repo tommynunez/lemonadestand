@@ -10,7 +10,7 @@ namespace LemonadeStand.Abstractions.Entities
 		public string Phone { get; set; }
 		public double TotalCost { get; set; }
     public string GuestId { get; set; }
-    public string UserId { get; set; }
+    public int UserId { get; set; }
     public int LocationId { get; set; }
 
 		public virtual List<LineItem> LineItems { get; set; }
