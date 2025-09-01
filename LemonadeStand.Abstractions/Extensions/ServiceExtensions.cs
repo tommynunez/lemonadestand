@@ -2,11 +2,10 @@
 
 namespace LemonadeStand.Abstractions.Extensions
 {
-	public static class ServiceExtensions
-	{
-		public static void AddLemondaeStandExtensions(this ServiceCollection service)
-		{
-		}
-	}
+  public static class ServiceExtensions
+  {
+    public static void AddLemonadeStandExtensions(this ServiceCollection service)
+    {
+    }
+  }
 }
-

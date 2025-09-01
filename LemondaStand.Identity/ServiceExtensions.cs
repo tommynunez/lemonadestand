@@ -1,11 +1,11 @@
 ﻿using LemonadeStand.Identity.Controller;
 using LemonadeStand.Identity.Data;
 using LemonadeStand.Identity.Data.Models;
+using LemonadeStand.Identity.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Text;
 
 namespace LemondaStand.Identity
 {
@@ -13,13 +13,15 @@ namespace LemondaStand.Identity
   {
     public static void AddIdentityService(this IServiceCollection services, IConfiguration configuration)
     {
+      services.Configure<AdministratorOptions>(options =>
+          configuration.GetSection("AdministratorOptions").Bind(options));
       services.AddScoped<IAuthenticationController, AuthenticationController>();
       services.AddScoped<IdentityUser<int>, AppUser>();
       services.AddScoped<IdentityRole<int>, AppRole>();
       services.AddDbContext<IdentityDatabaseContext>(options =>
         options.UseSqlServer(configuration.GetConnectionString("LemonadeStandDatabase"),
           b => b.MigrationsAssembly("LemonadeStand")),
-          ServiceLifetime.Transient);
+        ServiceLifetime.Transient);
 
       services.AddIdentity<AppUser, AppRole>(options =>
       {

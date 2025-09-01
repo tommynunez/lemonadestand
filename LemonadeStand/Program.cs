@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Infisical.Sdk;
 using Infisical.Sdk.Model;
 using InfisicalConfiguration;
 using LemonadeStand.Abstractions.Extensions;
@@ -10,8 +9,8 @@ using LemonadeStand.Data;
 using LemonadeStand.Data.Repositories;
 using LemonadeStand.Graphql.Mutations;
 using LemonadeStand.Graphql.Queries;
-using LemonadeStand.Identity.Data;
 using LemonadeStand.Identity.Data.Models;
+using LemonadeStand.Identity.Options;
 using LemonadeStand.Services;
 using LemondaStand.Identity;
 using LemondaStand.Identity.DataTransferObjects;
@@ -22,6 +21,8 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 var env = builder.Environment;
+
+services.Configure<AdministratorOptions>(configuration.GetSection("AdministratorOptions"));
 
 var clientId = configuration.GetValue<string>("Infisical:ClientId");
 var clientSecret = configuration.GetValue<string>("Infisical:Secret");
@@ -93,12 +94,8 @@ services.AddSingleton(mapper);
 
 #region Databse Configuration
 services.AddDbContext<DatabaseContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase")), ServiceLifetime.Transient);
-
-services.AddDbContext<IdentityDatabaseContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase"),
-    b => b.MigrationsAssembly("LemonadeStand")),
-    ServiceLifetime.Transient);
+  options.UseSqlServer(builder.Configuration.GetConnectionString("LemonadeStandDatabase")),
+  ServiceLifetime.Transient);
 #endregion
 
 #region Scopes
@@ -151,6 +148,9 @@ services.AddCors(options =>
 #endregion
 
 var app = builder.Build();
+var serviceProvider = app.Services;
+var applicationConfiguration = app.Configuration;
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsProduction())
 {
@@ -163,6 +163,10 @@ if (!app.Environment.IsProduction())
 
 #region Migrations
 services.AddRunMigrationsExtensions(app, configuration);
+#endregion
+
+#region Seed Administrator User
+app.UseSeedAdministratorUserExtension(serviceProvider, applicationConfiguration);
 #endregion
 
 

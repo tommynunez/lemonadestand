@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
-
-namespace LemonadeStand.Abstractions.Entities
+﻿namespace LemonadeStand.Abstractions.Entities
 {
-	public class Size : Base
-	{
-		public string Name { get; set; }
+  public class Size : Base
+  {
+    public string Name { get; set; }
 
-		public virtual List<Product> Products { get; set; }
+    public int LocationId { get; set; }
 
-		public Size()
-		{
-		}
-	}
+    public virtual List<Location> Locations { get; set; }
+
+    public virtual List<Product> Products { get; set; }
+
+    public Size()
+    {
+    }
+  }
 }
 
