@@ -44,20 +44,18 @@ namespace LemonadeStand.Data.Configurations
       builder.HasMany(x => x.LineItems)
         .WithOne(x => x.Product);
 
-      builder.HasOne(x => x.LemonadeTypes)
+      builder.HasOne(x => x.LemonadeType)
         .WithMany(x => x.Products)
         .HasForeignKey(x => x.LemonadeTypeId)
-        .HasConstraintName("ForeignKey_Product_LemonadeTypes");
+        .HasConstraintName("ForeignKey_Product_LemonadeType");
 
-      builder.HasOne(x => x.Sizes)
+      builder.HasOne(x => x.Size)
         .WithMany(x => x.Products)
         .HasForeignKey(x => x.SizeId)
-        .HasConstraintName("ForeignKey_Product_Sizes");
+        .HasConstraintName("ForeignKey_Product_Size");
 
       builder.HasMany(x => x.Locations)
         .WithMany(x => x.Products);
-
-      builder.HasOne(x => x.Sizes);
 
       //  builder.HasData(new Product
       //  {
