@@ -13,7 +13,7 @@ namespace LemonadeStand.Data
     });
 
     public IConfiguration Configuration { get; }
-    public DbSet<LemonadeType> LemonadeTypes { get; set; }
+    public DbSet<ProductType> ProductTypes { get; set; }
     public DbSet<LineItem> LineItems { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
@@ -39,7 +39,7 @@ namespace LemonadeStand.Data
       base.OnModelCreating(modelBuilder);
 
       modelBuilder.ApplyConfiguration(new LineItemConfiguration());
-      modelBuilder.ApplyConfiguration(new LemonadeTypeConfiguration());
+      modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
       modelBuilder.ApplyConfiguration(new SizeConfiguration());
       modelBuilder.ApplyConfiguration(new ProductConfiguration());
       modelBuilder.ApplyConfiguration(new OrderConfiguration());

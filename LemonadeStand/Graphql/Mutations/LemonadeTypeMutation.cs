@@ -8,13 +8,13 @@ using LemonadeStand.Abstractions.Models;
 namespace LemonadeStand.Graphql.Mutations
 {
   [ExtendObjectType("Mutation")]
-  public class LemonadeTypeMutation
+  public class ProductTypeMutation
   {
-    public async Task<bool> InsertLemonadeTypeAsync([Service] ILemonadeTypeService _lemonadeTypeService, LemonadeType lemonadeType)
+    public async Task<bool> InsertProductTypeAsync([Service] IProductTypeService _ProductTypeService, ProductType ProductType)
     {
       try
       {
-        await _lemonadeTypeService.InsertAsync(lemonadeType);
+        await _ProductTypeService.InsertAsync(ProductType);
         return true;
       }
       catch (Exception ex)
@@ -23,11 +23,11 @@ namespace LemonadeStand.Graphql.Mutations
       }
     }
 
-    public async Task<bool> UpdateLemonadeTypeAsync([Service] ILemonadeTypeService _lemonadeTypeService, int id, LemonadeType lemonadeType)
+    public async Task<bool> UpdateProductTypeAsync([Service] IProductTypeService _ProductTypeService, int id, ProductType ProductType)
     {
       try
       {
-        await _lemonadeTypeService.UpdateAsync(id, lemonadeType);
+        await _ProductTypeService.UpdateAsync(id, ProductType);
         return true;
       }
       catch (Exception ex)
@@ -36,11 +36,11 @@ namespace LemonadeStand.Graphql.Mutations
       }
     }
 
-    public async Task<bool> DeleteLemonadeTypeAsync([Service] ILemonadeTypeService _lemonadeTypeService, int id)
+    public async Task<bool> DeleteProductTypeAsync([Service] IProductTypeService _ProductTypeService, int id)
     {
       try
       {
-        await _lemonadeTypeService.DeleteAsync(id);
+        await _ProductTypeService.DeleteAsync(id);
         return true;
       }
       catch (Exception ex)

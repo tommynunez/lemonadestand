@@ -10,10 +10,10 @@ namespace LemonadeStand.Data.Configurations
     {
       builder.ToTable("Product");
       builder.HasKey(li => li.Id);
-      builder.Property(l => l.LemonadeTypeId)
+      builder.Property(l => l.ProductTypeId)
         .IsRequired()
         .HasColumnType("int")
-        .HasColumnName("LemonadeTypeId");
+        .HasColumnName("ProductTypeId");
       builder.Property(l => l.LocationId)
         .IsRequired()
         .HasColumnType("int")
@@ -44,23 +44,25 @@ namespace LemonadeStand.Data.Configurations
       builder.HasMany(x => x.LineItems)
         .WithOne(x => x.Product);
 
-      builder.HasOne(x => x.LemonadeType)
+      builder.HasOne(x => x.ProductType)
         .WithMany(x => x.Products)
-        .HasForeignKey(x => x.LemonadeTypeId)
-        .HasConstraintName("ForeignKey_Product_LemonadeType");
+        .HasForeignKey(x => x.ProductTypeId)
+        .HasConstraintName("ForeignKey_Product_ProductType");
 
       builder.HasOne(x => x.Size)
         .WithMany(x => x.Products)
         .HasForeignKey(x => x.SizeId)
         .HasConstraintName("ForeignKey_Product_Size");
 
-      builder.HasMany(x => x.Locations)
-        .WithMany(x => x.Products);
+      builder.HasOne(x => x.Location)
+        .WithMany(x => x.Products)
+        .HasForeignKey(x => x.LocationId)
+        .HasConstraintName("ForeignKey_Product_Location");
 
       //  builder.HasData(new Product
       //  {
       //    Id = 1,
-      //    LemonadeTypeId = 1,
+      //    ProductTypeId = 1,
 
       //    SizeId = 1,
       //    Amount = 0.75,
@@ -70,7 +72,7 @@ namespace LemonadeStand.Data.Configurations
       //  new Product
       //  {
       //    Id = 2,
-      //    LemonadeTypeId = 1,
+      //    ProductTypeId = 1,
       //    SizeId = 2,
       //    Amount = 1.50,
       //    Created = DateTime.Now,
@@ -78,7 +80,7 @@ namespace LemonadeStand.Data.Configurations
       //  }, new Product
       //  {
       //    Id = 3,
-      //    LemonadeTypeId = 2,
+      //    ProductTypeId = 2,
       //    SizeId = 1,
       //    Amount = 0.75,
       //    Created = DateTime.Now,
@@ -86,7 +88,7 @@ namespace LemonadeStand.Data.Configurations
       //  }, new Product
       //  {
       //    Id = 4,
-      //    LemonadeTypeId = 2,
+      //    ProductTypeId = 2,
       //    SizeId = 2,
       //    Amount = 1.50,
       //    Created = DateTime.Now,

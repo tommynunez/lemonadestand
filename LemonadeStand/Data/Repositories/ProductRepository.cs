@@ -28,7 +28,7 @@ namespace LemonadeStand.Data.Repositories
     {
       return await _databaseContext.Products
           .Include(x => x.Sizes)
-          .Include(x => x.LemonadeTypes)
+          .Include(x => x.ProductTypes)
           .FirstOrDefaultAsync(x => x.Id == id);
     }
 
@@ -64,7 +64,7 @@ namespace LemonadeStand.Data.Repositories
         _logger.LogInformation(GET_PRODUCT_MESSAGE);
         eProductList = await _databaseContext.Products
             .Include(x => x.Sizes)
-            .Include(x => x.LemonadeTypes).ToListAsync();
+            .Include(x => x.ProductTypes).ToListAsync();
       }
       catch (Exception ex)
       {

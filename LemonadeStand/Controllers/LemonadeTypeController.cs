@@ -7,16 +7,16 @@ namespace LemonadeStand.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class LemonadeTypeController : Controller, ILemonadeTypeController
+  public class ProductTypeController : Controller, IProductTypeController
   {
-    private readonly ILogger<LemonadeTypeController> _logger;
-    private readonly ILemonadeTypeService _lemonadeTypeService;
+    private readonly ILogger<ProductTypeController> _logger;
+    private readonly IProductTypeService _ProductTypeService;
 
-    public LemonadeTypeController(ILogger<LemonadeTypeController> logger,
-        ILemonadeTypeService lemonadeTypeService)
+    public ProductTypeController(ILogger<ProductTypeController> logger,
+        IProductTypeService ProductTypeService)
     {
       _logger = logger;
-      _lemonadeTypeService = lemonadeTypeService;
+      _ProductTypeService = ProductTypeService;
     }
 
     [HttpDelete("{id}")]
@@ -29,13 +29,13 @@ namespace LemonadeStand.Controllers
           return BadRequest("id is empty");
         }
 
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_DELETE_SERVICE);
-        await _lemonadeTypeService.DeleteAsync(id);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_DELETE_SERVICE);
+        await _ProductTypeService.DeleteAsync(id);
         return Ok();
       }
       catch (Exception ex)
       {
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_DELETE_SERVICE_ERROR);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_DELETE_SERVICE_ERROR);
         return StatusCode(500);
       }
     }
@@ -50,13 +50,13 @@ namespace LemonadeStand.Controllers
           return BadRequest("search is empty");
         }
 
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_GETALL_SERVICE);
-        var oSize = await _lemonadeTypeService.GetAllAsync(search, pageIndex, pageSize, sortField);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_GETALL_SERVICE);
+        var oSize = await _ProductTypeService.GetAllAsync(search, pageIndex, pageSize, sortField);
         return Ok(oSize);
       }
       catch (Exception ex)
       {
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_GETALL_SERVICE_ERROR);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_GETALL_SERVICE_ERROR);
         return StatusCode(500);
       }
     }
@@ -71,40 +71,40 @@ namespace LemonadeStand.Controllers
           return BadRequest("id is empty");
         }
 
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_GETBYID_SERVICE);
-        var oSize = await _lemonadeTypeService.GetByIdAsync(id);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_GETBYID_SERVICE);
+        var oSize = await _ProductTypeService.GetByIdAsync(id);
         return Ok(oSize);
       }
       catch (Exception ex)
       {
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_GETBYID_SERVICE_ERROR);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_GETBYID_SERVICE_ERROR);
         return StatusCode(500);
       }
     }
 
     [HttpPost]
-    public async Task<ActionResult> InsertAsync([FromBody] LemonadeType lemonadeType)
+    public async Task<ActionResult> InsertAsync([FromBody] ProductType ProductType)
     {
       try
       {
-        if (string.IsNullOrEmpty(lemonadeType.Name))
+        if (string.IsNullOrEmpty(ProductType.Name))
         {
           return BadRequest("name is empty");
         }
 
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_INSERT_SERVICE);
-        await _lemonadeTypeService.InsertAsync(lemonadeType);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_INSERT_SERVICE);
+        await _ProductTypeService.InsertAsync(ProductType);
         return Ok();
       }
       catch (Exception ex)
       {
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_INSERT_SERVICE_ERROR);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_INSERT_SERVICE_ERROR);
         return StatusCode(500);
       }
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateAsync([FromRoute] int id, [FromBody] LemonadeType lemonadeType)
+    public async Task<ActionResult> UpdateAsync([FromRoute] int id, [FromBody] ProductType ProductType)
     {
       try
       {
@@ -114,13 +114,13 @@ namespace LemonadeStand.Controllers
         }
 
 
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_UPDATE_SERVICE);
-        await _lemonadeTypeService.UpdateAsync(id, lemonadeType);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_UPDATE_SERVICE);
+        await _ProductTypeService.UpdateAsync(id, ProductType);
         return Ok();
       }
       catch (Exception ex)
       {
-        _logger.LogInformation(LemonadeTypeLogMessages.LEMONADETYPE_INVOKE_UPDATE_SERVICE_ERROR);
+        _logger.LogInformation(ProductTypeLogMessages.ProductType_INVOKE_UPDATE_SERVICE_ERROR);
         return StatusCode(500);
       }
     }

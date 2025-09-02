@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LemonadeStand.Data.Configurations
 {
-  public class LemonadeTypeConfiguration : IEntityTypeConfiguration<LemonadeType>
+  public class ProductTypeConfiguration : IEntityTypeConfiguration<ProductType>
   {
-    public LemonadeTypeConfiguration()
+    public ProductTypeConfiguration()
     {
     }
 
-    public void Configure(EntityTypeBuilder<LemonadeType> builder)
+    public void Configure(EntityTypeBuilder<ProductType> builder)
     {
-      builder.ToTable("LemonadeType");
+      builder.ToTable("ProductType");
       builder.HasKey(x => x.Id);
       builder.Property(x => x.Name)
         .IsRequired()
@@ -33,13 +33,13 @@ namespace LemonadeStand.Data.Configurations
         .HasColumnType("datetime")
         .HasColumnName("Deleted");
 
-      //builder.HasData(new LemonadeType
+      //builder.HasData(new ProductType
       //{
       //	Id = 1,
       //	Name = "Regular Lemonade",
       //	Created = DateTime.Now,
       //	Udpdated = DateTime.Now
-      //}, new LemonadeType
+      //}, new ProductType
       //{
       //	Id = 2,
       //	Name = "Pink Lemonade",

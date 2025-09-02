@@ -51,7 +51,7 @@ namespace LemonadeStand.Data.Repositories
         eOrderList = await _context.Orders
             .Include(x => x.LineItems)
                 .ThenInclude(x => x.Product)
-                    .ThenInclude(x => x.LemonadeTypes)
+                    .ThenInclude(x => x.ProductTypes)
                 .ThenInclude(x => x.Products)
                     .ThenInclude(x => x.Sizes)
                     .OrderByDescending(x => x.Created)

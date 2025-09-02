@@ -72,7 +72,7 @@ var autoMapperconfiguration = new MapperConfiguration(cfg =>
   cfg.CreateMap<LineItem, LemonadeStand.Abstractions.Entities.LineItem>()
       //.ForMember(x => x.ProductId, opt => opt.MapFrom(x => x.ProductId))
       .ReverseMap();
-  cfg.CreateMap<LemonadeType, LemonadeStand.Abstractions.Entities.LemonadeType>()
+  cfg.CreateMap<ProductType, LemonadeStand.Abstractions.Entities.ProductType>()
       .ReverseMap();
   cfg.CreateMap<Size, LemonadeStand.Abstractions.Entities.Size>()
       .ReverseMap();
@@ -80,7 +80,7 @@ var autoMapperconfiguration = new MapperConfiguration(cfg =>
       //.ForMember(x => x.LineItems, opt => opt.Ignore())
       .ReverseMap();
   cfg.CreateMap<Product, LemonadeStand.Abstractions.Entities.Product>()
-      .ForMember(x => x.LemonadeTypes, opt => opt.MapFrom(src => src.LemonadeType))
+      .ForMember(x => x.ProductTypes, opt => opt.MapFrom(src => src.ProductType))
       .ForMember(x => x.Sizes, opt => opt.MapFrom(src => src.Size))
       .ReverseMap();
   cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
@@ -99,17 +99,17 @@ services.AddDbContext<DatabaseContext>(options =>
 #endregion
 
 #region Scopes
-services.AddScoped<ILemonadeTypeController, LemonadeTypeController>();
+services.AddScoped<IProductTypeController, ProductTypeController>();
 services.AddScoped<ISizeController, SizeController>();
 services.AddScoped<IOrderController, OrderController>();
 services.AddScoped<IProductController, ProductController>();
 services.AddScoped<ILineItemService, LineItemService>();
-services.AddScoped<ILemonadeTypeService, LemonadeTypeService>();
+services.AddScoped<IProductTypeService, ProductTypeService>();
 services.AddScoped<ISizeService, SizeService>();
 services.AddScoped<IOrderService, OrderService>();
 services.AddScoped<IProductService, ProductService>();
 services.AddScoped<ILineItemRepository, LineItemRepository>();
-services.AddScoped<ILemonadeTypeRepository, LemonadeTypeRepository>();
+services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
 services.AddScoped<ISizeRepository, SizeRepository>();
 services.AddScoped<IOrderRepository, OrderRepository>();
 services.AddScoped<IProductRepository, ProductRepository>();
@@ -124,11 +124,11 @@ services
     .AddGraphQLServer()
     .AddQueryType(d => d.Name("Query"))
     .AddMutationType(d => d.Name("Mutation"))
-    .AddType<LemonadeTypeMutation>()
+    .AddType<ProductTypeMutation>()
     .AddType<OrderMutation>()
     .AddType<SizeMutation>()
     .AddType<LemonadeStand.Graphql.Mutations.ProductMutation>()
-    .AddType<LemonadeTypeQuery>()
+    .AddType<ProductTypeQuery>()
     .AddType<ProductQuery>()
     .AddType<OrderQuery>()
     .AddType<SizeQuery>();

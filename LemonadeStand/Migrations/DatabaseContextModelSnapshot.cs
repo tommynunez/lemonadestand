@@ -17,7 +17,7 @@ namespace LemonadeStand.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.12");
 
-            modelBuilder.Entity("LemonadeStand.Abstractions.Entities.LemonadeType", b =>
+            modelBuilder.Entity("LemonadeStand.Abstractions.Entities.ProductType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace LemonadeStand.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LemonadeType", (string)null);
+                    b.ToTable("ProductType", (string)null);
 
                     b.HasData(
                         new
@@ -182,9 +182,9 @@ namespace LemonadeStand.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("Deleted");
 
-                    b.Property<int>("LemonadeTypeId")
+                    b.Property<int>("ProductTypeId")
                         .HasColumnType("int")
-                        .HasColumnName("LemonadeTypeId");
+                        .HasColumnName("ProductTypeId");
 
                     b.Property<int>("SizeId")
                         .HasColumnType("int")
@@ -198,7 +198,7 @@ namespace LemonadeStand.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LemonadeTypeId");
+                    b.HasIndex("ProductTypeId");
 
                     b.HasIndex("SizeId");
 
@@ -210,7 +210,7 @@ namespace LemonadeStand.Migrations
                             Id = 1,
                             Amount = 0.75,
                             Created = new DateTime(2025, 2, 5, 10, 38, 30, 563, DateTimeKind.Local).AddTicks(4620),
-                            LemonadeTypeId = 1,
+                            ProductTypeId = 1,
                             SizeId = 1,
                             Udpdated = new DateTime(2025, 2, 5, 10, 38, 30, 563, DateTimeKind.Local).AddTicks(4630)
                         },
@@ -219,7 +219,7 @@ namespace LemonadeStand.Migrations
                             Id = 2,
                             Amount = 1.5,
                             Created = new DateTime(2025, 2, 5, 10, 38, 30, 563, DateTimeKind.Local).AddTicks(4630),
-                            LemonadeTypeId = 1,
+                            ProductTypeId = 1,
                             SizeId = 2,
                             Udpdated = new DateTime(2025, 2, 5, 10, 38, 30, 563, DateTimeKind.Local).AddTicks(4630)
                         },
@@ -228,7 +228,7 @@ namespace LemonadeStand.Migrations
                             Id = 3,
                             Amount = 0.75,
                             Created = new DateTime(2025, 2, 5, 10, 38, 30, 563, DateTimeKind.Local).AddTicks(4640),
-                            LemonadeTypeId = 2,
+                            ProductTypeId = 2,
                             SizeId = 1,
                             Udpdated = new DateTime(2025, 2, 5, 10, 38, 30, 563, DateTimeKind.Local).AddTicks(4640)
                         },
@@ -237,7 +237,7 @@ namespace LemonadeStand.Migrations
                             Id = 4,
                             Amount = 1.5,
                             Created = new DateTime(2025, 2, 5, 10, 38, 30, 563, DateTimeKind.Local).AddTicks(4650),
-                            LemonadeTypeId = 2,
+                            ProductTypeId = 2,
                             SizeId = 2,
                             Udpdated = new DateTime(2025, 2, 5, 10, 38, 30, 563, DateTimeKind.Local).AddTicks(4650)
                         });
@@ -314,12 +314,12 @@ namespace LemonadeStand.Migrations
 
             modelBuilder.Entity("LemonadeStand.Abstractions.Entities.Product", b =>
                 {
-                    b.HasOne("LemonadeStand.Abstractions.Entities.LemonadeType", "LemonadeTypes")
+                    b.HasOne("LemonadeStand.Abstractions.Entities.ProductType", "ProductTypes")
                         .WithMany("Products")
-                        .HasForeignKey("LemonadeTypeId")
+                        .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("ForeignKey_Product_LemonadeTypes");
+                        .HasConstraintName("ForeignKey_Product_ProductTypes");
 
                     b.HasOne("LemonadeStand.Abstractions.Entities.Size", "Sizes")
                         .WithMany("Products")
@@ -328,12 +328,12 @@ namespace LemonadeStand.Migrations
                         .IsRequired()
                         .HasConstraintName("ForeignKey_Product_Sizes");
 
-                    b.Navigation("LemonadeTypes");
+                    b.Navigation("ProductTypes");
 
                     b.Navigation("Sizes");
                 });
 
-            modelBuilder.Entity("LemonadeStand.Abstractions.Entities.LemonadeType", b =>
+            modelBuilder.Entity("LemonadeStand.Abstractions.Entities.ProductType", b =>
                 {
                     b.Navigation("Products");
                 });

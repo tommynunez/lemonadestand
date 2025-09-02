@@ -14,7 +14,7 @@ namespace LemonadeStand.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "LemonadeType",
+                name: "ProductType",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -26,7 +26,7 @@ namespace LemonadeStand.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LemonadeType", x => x.Id);
+                    table.PrimaryKey("PK_ProductType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -71,7 +71,7 @@ namespace LemonadeStand.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    LemonadeTypeId = table.Column<int>(type: "int", nullable: false),
+                    ProductTypeId = table.Column<int>(type: "int", nullable: false),
                     SizeId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
@@ -82,9 +82,9 @@ namespace LemonadeStand.Migrations
                 {
                     table.PrimaryKey("PK_Product", x => x.Id);
                     table.ForeignKey(
-                        name: "ForeignKey_Product_LemonadeTypes",
-                        column: x => x.LemonadeTypeId,
-                        principalTable: "LemonadeType",
+                        name: "ForeignKey_Product_ProductTypes",
+                        column: x => x.ProductTypeId,
+                        principalTable: "ProductType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -127,7 +127,7 @@ namespace LemonadeStand.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "LemonadeType",
+                table: "ProductType",
                 columns: new[] { "Id", "Created", "Deleted", "Name" },
                 values: new object[,]
                 {
@@ -146,7 +146,7 @@ namespace LemonadeStand.Migrations
 
             migrationBuilder.InsertData(
                 table: "Product",
-                columns: new[] { "Id", "Amount", "Created", "Deleted", "LemonadeTypeId", "SizeId" },
+                columns: new[] { "Id", "Amount", "Created", "Deleted", "ProductTypeId", "SizeId" },
                 values: new object[,]
                 {
                     { 1, 0.75, new DateTime(2025, 2, 5, 10, 38, 30, 563, DateTimeKind.Local).AddTicks(4620), null, 1, 1 },
@@ -166,9 +166,9 @@ namespace LemonadeStand.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_LemonadeTypeId",
+                name: "IX_Product_ProductTypeId",
                 table: "Product",
-                column: "LemonadeTypeId");
+                column: "ProductTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_SizeId",
@@ -189,7 +189,7 @@ namespace LemonadeStand.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "LemonadeType");
+                name: "ProductType");
 
             migrationBuilder.DropTable(
                 name: "Size");

@@ -2,13 +2,13 @@
 
 namespace LemonadeStand.Abstractions.Entities
 {
-	public class LemonadeType : Base
+	public class ProductType : Base
 	{
 		public string Name { get; set; }
 
 		public virtual List<Product> Products { get; set; }
 
-		public LemonadeType()
+		public ProductType()
 		{
 		}
 	}

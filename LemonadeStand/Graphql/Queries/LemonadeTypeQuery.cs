@@ -11,14 +11,14 @@ using Microsoft.Toolkit.Diagnostics;
 namespace LemonadeStand.Graphql.Queries
 {
     [ExtendObjectType("Query")]
-    public class LemonadeTypeQuery
+    public class ProductTypeQuery
     {
-        public async Task<LemonadeType?> RetrieveLemonadeTypeById([Service] ILemonadeTypeService _lemonadeTypeService, int id)
+        public async Task<ProductType?> RetrieveProductTypeById([Service] IProductTypeService _ProductTypeService, int id)
         {
-            var oLemoandeType = new LemonadeType();
+            var oLemoandeType = new ProductType();
             try
             {
-                oLemoandeType = await _lemonadeTypeService.GetByIdAsync(id);
+                oLemoandeType = await _ProductTypeService.GetByIdAsync(id);
                 return oLemoandeType;
             }
             catch (Exception ex)
@@ -28,11 +28,11 @@ namespace LemonadeStand.Graphql.Queries
             return oLemoandeType;
         }
 
-        public async Task<IEnumerable<LemonadeType>> RetrieveAllLemonadeTypes([Service] ILemonadeTypeService _lemonadeTypeService)
+        public async Task<IEnumerable<ProductType>> RetrieveAllProductTypes([Service] IProductTypeService _ProductTypeService)
         {
             try
             {
-                var oLemoandeTypelist = await _lemonadeTypeService.GetAllLemonadeTypesAsync();
+                var oLemoandeTypelist = await _ProductTypeService.GetAllProductTypesAsync();
                 oLemoandeTypelist.ToList();
                 return oLemoandeTypelist;
             }
@@ -40,7 +40,7 @@ namespace LemonadeStand.Graphql.Queries
             {
 
             }
-            return new List<LemonadeType>();
+            return new List<ProductType>();
         }
     }
 }

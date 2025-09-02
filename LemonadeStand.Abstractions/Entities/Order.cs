@@ -12,7 +12,7 @@
     public int LocationId { get; set; }
 
     public virtual List<LineItem> LineItems { get; set; }
-    public virtual List<Location> Locations { get; set; }
+    public virtual Location Location { get; set; }
 
     public Order()
     {

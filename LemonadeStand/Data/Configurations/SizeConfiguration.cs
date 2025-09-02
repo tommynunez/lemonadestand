@@ -14,10 +14,6 @@ namespace LemonadeStand.Data.Configurations
     {
       builder.ToTable("Size");
       builder.HasKey(x => x.Id);
-      builder.Property(x => x.LocationId)
-        .IsRequired()
-        .HasColumnType("int")
-        .HasColumnName("LocationId");
       builder.Property(x => x.Name)
           .IsRequired()
           .HasColumnType("varchar(50)")
@@ -36,9 +32,6 @@ namespace LemonadeStand.Data.Configurations
       builder.Property(l => l.Deleted)
         .HasColumnType("datetime")
         .HasColumnName("Deleted");
-
-      builder.HasMany(x => x.Locations)
-        .WithMany(x => x.Sizes);
 
       //builder.HasData(new Size
       //{

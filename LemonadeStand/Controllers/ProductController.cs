@@ -12,8 +12,8 @@ namespace LemonadeStand.Controllers
   public class ProductController : ControllerBase, IProductController
   {
     private readonly IProductService _productService;
-    private readonly ILogger<LemonadeTypeController> _logger;
-    public ProductController(IProductService productService, ILogger<LemonadeTypeController> logger)
+    private readonly ILogger<ProductTypeController> _logger;
+    public ProductController(IProductService productService, ILogger<ProductTypeController> logger)
     {
       _logger = logger;
       _productService = productService;

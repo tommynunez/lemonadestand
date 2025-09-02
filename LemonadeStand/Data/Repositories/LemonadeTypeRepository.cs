@@ -9,13 +9,13 @@ using Microsoft.Extensions.Logging;
 
 namespace LemonadeStand.Data.Repositories
 {
-  public class LemonadeTypeRepository : ILemonadeTypeRepository
+  public class ProductTypeRepository : IProductTypeRepository
   {
-    private readonly ILogger<LemonadeTypeRepository> _logger;
+    private readonly ILogger<ProductTypeRepository> _logger;
     private readonly DatabaseContext _databaseContext;
 
-    public LemonadeTypeRepository(
-        ILogger<LemonadeTypeRepository> logger,
+    public ProductTypeRepository(
+        ILogger<ProductTypeRepository> logger,
         DatabaseContext databaseContext)
     {
       _logger = logger;
@@ -25,22 +25,22 @@ namespace LemonadeStand.Data.Repositories
 
     public async Task DeleteAsync(int id)
     {
-      var oModel = _databaseContext.LemonadeTypes.FirstOrDefault(x => x.Id == id);
+      var oModel = _databaseContext.ProductTypes.FirstOrDefault(x => x.Id == id);
       oModel.Deleted = DateTime.Now;
       _databaseContext.Update(oModel);
       await _databaseContext.SaveChangesAsync();
       _databaseContext.ChangeTracker.Clear();
     }
 
-    public async Task<IEnumerable<LemonadeType>> GetAllAsync(string search, int pageIndex, int pageSize, string sortField = null)
+    public async Task<IEnumerable<ProductType>> GetAllAsync(string search, int pageIndex, int pageSize, string sortField = null)
     {
-      IQueryable<LemonadeType> query = _databaseContext.LemonadeTypes.AsQueryable();
+      IQueryable<ProductType> query = _databaseContext.ProductTypes.AsQueryable();
 
       if (!String.IsNullOrWhiteSpace(search))
       {
         search = search.ToLower();
 
-        query = (from lt in _databaseContext.LemonadeTypes
+        query = (from lt in _databaseContext.ProductTypes
                  where lt.Name.ToString() == search ||
                  lt.Id.ToString() == search
                  select lt);
@@ -65,26 +65,26 @@ namespace LemonadeStand.Data.Repositories
       return await query.ToListAsync();
     }
 
-    public async Task<IEnumerable<LemonadeType>> GetAllLemonadeTypesAsync()
+    public async Task<IEnumerable<ProductType>> GetAllProductTypesAsync()
     {
-      return await _databaseContext.LemonadeTypes.ToListAsync();
+      return await _databaseContext.ProductTypes.ToListAsync();
     }
 
-    public async Task<LemonadeType?> GetByIdAsync(int id)
+    public async Task<ProductType?> GetByIdAsync(int id)
     {
-      return await _databaseContext.LemonadeTypes.FirstOrDefaultAsync(x => x.Id == id);
+      return await _databaseContext.ProductTypes.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task InsertAsync(LemonadeType lemonadeType)
+    public async Task InsertAsync(ProductType ProductType)
     {
-      await _databaseContext.LemonadeTypes.AddAsync(lemonadeType);
+      await _databaseContext.ProductTypes.AddAsync(ProductType);
       await _databaseContext.SaveChangesAsync();
       _databaseContext.ChangeTracker.Clear();
     }
 
-    public async Task UpdateAsync(int id, LemonadeType lemonadeType)
+    public async Task UpdateAsync(int id, ProductType ProductType)
     {
-      _databaseContext.LemonadeTypes.Update(lemonadeType);
+      _databaseContext.ProductTypes.Update(ProductType);
       await _databaseContext.SaveChangesAsync();
       _databaseContext.ChangeTracker.Clear();
     }

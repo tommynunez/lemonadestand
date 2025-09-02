@@ -49,8 +49,10 @@ namespace LemonadeStand.Data.Configurations
         .HasColumnName("Deleted")
         .HasDefaultValueSql(null);
 
-      builder.HasMany(x => x.Locations)
-        .WithMany(x => x.Orders);
+      builder.HasOne(x => x.Location)
+        .WithMany(x => x.Orders)
+        .HasForeignKey(x => x.LocationId)
+        .HasConstraintName("ForeignKey_Order_Location");
     }
   }
 }
