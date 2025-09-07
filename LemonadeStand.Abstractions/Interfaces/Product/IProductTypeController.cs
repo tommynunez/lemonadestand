@@ -2,7 +2,7 @@
 using LemonadeStand.Abstractions.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LemonadeStand.Abstractions.Interfaces
+namespace LemonadeStand.Abstractions.Interfaces.Product
 {
 	public interface IProductTypeController
 	{

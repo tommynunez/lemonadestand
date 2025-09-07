@@ -12,10 +12,13 @@ namespace LemonadeStand.Controllers
   {
     private readonly IOrderService _orderService;
     const string ORDER_BAD_REQUEST_MESSAGE = "Order cannot be null";
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public OrderController(IOrderService orderService)
+    public OrderController(IOrderService orderService,
+      IHttpContextAccessor httpContextAccessor)
     {
       _orderService = orderService;
+      _httpContextAccessor = httpContextAccessor;
     }
 
     [HttpPost]
@@ -28,6 +31,7 @@ namespace LemonadeStand.Controllers
 
       try
       {
+        order.UserId = Convert.ToInt32(_httpContextAccessor.HttpContext?.User?.FindFirst("UserId")?.Value);
         var orderId = await _orderService.InsertOrderAsync(order);
       }
       catch (Exception ex)

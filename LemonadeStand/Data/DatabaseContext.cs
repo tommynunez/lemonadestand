@@ -13,12 +13,12 @@ namespace LemonadeStand.Data
     });
 
     public IConfiguration Configuration { get; }
-    public DbSet<ProductType> ProductTypes { get; set; }
-    public DbSet<LineItem> LineItems { get; set; }
-    public DbSet<Order> Orders { get; set; }
-    public DbSet<Product> Products { get; set; }
-    public DbSet<Size> Sizes { get; set; }
-    public DbSet<Abstractions.Entities.Location> Locations { get; set; }
+    public DbSet<ProductTypeEntity> ProductTypes { get; set; }
+    public DbSet<LineItemEntity> LineItems { get; set; }
+    public DbSet<OrderEntity> Orders { get; set; }
+    public DbSet<ProductEntity> Products { get; set; }
+    public DbSet<SizeEntity> Sizes { get; set; }
+    public DbSet<Abstractions.Entities.LocationEntity> Locations { get; set; }
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {

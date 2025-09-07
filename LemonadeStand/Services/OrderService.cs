@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using LemonadeStand.Abstractions.Interfaces;
 using LemonadeStand.Abstractions.Models;
-using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Diagnostics;
 
 namespace LemonadeStand.Services
@@ -39,7 +35,7 @@ namespace LemonadeStand.Services
       {
         Guard.IsNotNull(order, nameof(order));
         orderId = await _orderRepository.InsertOrderAsync(
-            _autoMapper.Map<LemonadeStand.Abstractions.Entities.Order>(order));
+            _autoMapper.Map<LemonadeStand.Abstractions.Entities.OrderEntity>(order));
         return orderId;
       }
       catch (Exception ex)
@@ -47,7 +43,6 @@ namespace LemonadeStand.Services
         _logger.LogError(ORDERSERVICE_INSERT_ERROR_MESSAGE, ex.Message);
         return 0;
       }
-
     }
 
     public async Task<IEnumerable<Order>> GetOrdersAsync()

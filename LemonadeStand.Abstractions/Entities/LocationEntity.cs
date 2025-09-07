@@ -1,6 +1,6 @@
 ﻿namespace LemonadeStand.Abstractions.Entities
 {
-  public class Location : Base
+  public class LocationEntity : Base
   {
     public string Name { get; set; }
     public string Description { get; set; }
@@ -13,12 +13,12 @@
     public string Phone { get; set; }
     public string UserId { get; set; }
 
-    public virtual List<Product> Products { get; set; }
+    public virtual List<ProductEntity> Products { get; set; }
 
-    public virtual List<Size> Sizes { get; set; }
+    public virtual List<SizeEntity> Sizes { get; set; }
 
-    public virtual List<Order> Orders { get; set; }
+    public virtual List<OrderEntity> Orders { get; set; }
 
-    public Location() { }
+    public LocationEntity() { }
   }
 }

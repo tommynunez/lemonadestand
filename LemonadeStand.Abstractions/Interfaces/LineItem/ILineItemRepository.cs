@@ -7,7 +7,7 @@ namespace LemonadeStand.Abstractions.Interfaces
 {
 	public interface ILineItemRepository
 	{
-		Task InsertLineItemAsync(IEnumerable<LineItem> lineItems);
+		Task InsertLineItemAsync(IEnumerable<LineItemEntity> lineItems);
 	}
 }
 

@@ -1,16 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using LemonadeStand.Abstractions.Entities;
-
-namespace LemonadeStand.Abstractions.Interfaces
+﻿namespace LemonadeStand.Abstractions.Interfaces
 {
-	public interface IProductRepository
-	{
-		Task<Product> GetByIdAsync(int id);
-		Task InsertAsync(Product product);
-		Task UpdateAsync(int id, Product product);
-		Task DeleteAsync(int id);
-		Task<IEnumerable<Product>> GetAllProductsAsync();
-	}
+  public interface IProductRepository
+  {
+    Task<LemonadeStand.Abstractions.Entities.ProductEntity> GetByIdAsync(int id);
+    Task InsertAsync(LemonadeStand.Abstractions.Entities.ProductEntity product);
+    Task UpdateAsync(int id, LemonadeStand.Abstractions.Entities.ProductEntity product);
+    Task DeleteAsync(int id);
+    Task<IEnumerable<LemonadeStand.Abstractions.Entities.ProductEntity>> GetAllProductsAsync();
+  }
 }
 

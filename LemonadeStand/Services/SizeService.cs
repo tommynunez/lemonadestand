@@ -83,7 +83,7 @@ namespace LemonadeStand.Services
       {
         Guard.IsNotNull<Size>(size, nameof(size));
         _logger.LogInformation(SizeLogMessages.SIZE_INVOKE_INSERT_SERVICE);
-        var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.Size>(size);
+        var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.SizeEntity>(size);
         await _sizeRepository.InsertAsync(oEntity);
       }
       catch (Exception ex)
@@ -99,7 +99,7 @@ namespace LemonadeStand.Services
         Guard.IsNotEqualTo<int>(id, 0, nameof(id));
         Guard.IsNotNull<Size>(size, nameof(size));
         _logger.LogInformation(SizeLogMessages.SIZE_INVOKE_UPDATE_SERVICE);
-        var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.Size>(size);
+        var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.SizeEntity>(size);
         await _sizeRepository.UpdateAsync(id, oEntity);
       }
       catch (Exception ex)

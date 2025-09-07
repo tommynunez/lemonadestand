@@ -3,6 +3,7 @@ using Infisical.Sdk.Model;
 using InfisicalConfiguration;
 using LemonadeStand.Abstractions.Extensions;
 using LemonadeStand.Abstractions.Interfaces;
+using LemonadeStand.Abstractions.Interfaces.Product;
 using LemonadeStand.Abstractions.Models;
 using LemonadeStand.Controllers;
 using LemonadeStand.Data;
@@ -69,21 +70,21 @@ services.AddSwaggerGen(config =>
 #region AutoMapper
 var autoMapperconfiguration = new MapperConfiguration(cfg =>
 {
-  cfg.CreateMap<LineItem, LemonadeStand.Abstractions.Entities.LineItem>()
+  cfg.CreateMap<LineItem, LemonadeStand.Abstractions.Entities.LineItemEntity>()
       //.ForMember(x => x.ProductId, opt => opt.MapFrom(x => x.ProductId))
       .ReverseMap();
-  cfg.CreateMap<ProductType, LemonadeStand.Abstractions.Entities.ProductType>()
+  cfg.CreateMap<ProductType, LemonadeStand.Abstractions.Entities.ProductTypeEntity>()
       .ReverseMap();
-  cfg.CreateMap<Size, LemonadeStand.Abstractions.Entities.Size>()
+  cfg.CreateMap<Size, LemonadeStand.Abstractions.Entities.SizeEntity>()
       .ReverseMap();
-  cfg.CreateMap<Order, LemonadeStand.Abstractions.Entities.Order>()
+  cfg.CreateMap<Order, LemonadeStand.Abstractions.Entities.OrderEntity>()
       //.ForMember(x => x.LineItems, opt => opt.Ignore())
       .ReverseMap();
-  cfg.CreateMap<Product, LemonadeStand.Abstractions.Entities.Product>()
+  cfg.CreateMap<Product, LemonadeStand.Abstractions.Entities.ProductEntity>()
       .ForMember(x => x.ProductTypes, opt => opt.MapFrom(src => src.ProductType))
       .ForMember(x => x.Sizes, opt => opt.MapFrom(src => src.Size))
       .ReverseMap();
-  cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.Product>()
+  cfg.CreateMap<LemonadeStand.Abstractions.Models.ProductMutation, LemonadeStand.Abstractions.Entities.ProductEntity>()
       .ReverseMap();
   cfg.CreateMap<RegisterDto, AppUser>()
       .ReverseMap();

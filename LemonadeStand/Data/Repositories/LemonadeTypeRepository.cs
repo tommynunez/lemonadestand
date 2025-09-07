@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LemonadeStand.Abstractions.Entities;
-using LemonadeStand.Abstractions.Interfaces;
+﻿using LemonadeStand.Abstractions.Entities;
+using LemonadeStand.Abstractions.Interfaces.Product;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace LemonadeStand.Data.Repositories
 {
@@ -32,9 +27,9 @@ namespace LemonadeStand.Data.Repositories
       _databaseContext.ChangeTracker.Clear();
     }
 
-    public async Task<IEnumerable<ProductType>> GetAllAsync(string search, int pageIndex, int pageSize, string sortField = null)
+    public async Task<IEnumerable<ProductTypeEntity>> GetAllAsync(string search, int pageIndex, int pageSize, string sortField = null)
     {
-      IQueryable<ProductType> query = _databaseContext.ProductTypes.AsQueryable();
+      IQueryable<ProductTypeEntity> query = _databaseContext.ProductTypes.AsQueryable();
 
       if (!String.IsNullOrWhiteSpace(search))
       {
@@ -65,24 +60,24 @@ namespace LemonadeStand.Data.Repositories
       return await query.ToListAsync();
     }
 
-    public async Task<IEnumerable<ProductType>> GetAllProductTypesAsync()
+    public async Task<IEnumerable<ProductTypeEntity>> GetAllProductTypesAsync()
     {
       return await _databaseContext.ProductTypes.ToListAsync();
     }
 
-    public async Task<ProductType?> GetByIdAsync(int id)
+    public async Task<ProductTypeEntity?> GetByIdAsync(int id)
     {
       return await _databaseContext.ProductTypes.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task InsertAsync(ProductType ProductType)
+    public async Task InsertAsync(ProductTypeEntity ProductType)
     {
       await _databaseContext.ProductTypes.AddAsync(ProductType);
       await _databaseContext.SaveChangesAsync();
       _databaseContext.ChangeTracker.Clear();
     }
 
-    public async Task UpdateAsync(int id, ProductType ProductType)
+    public async Task UpdateAsync(int id, ProductTypeEntity ProductType)
     {
       _databaseContext.ProductTypes.Update(ProductType);
       await _databaseContext.SaveChangesAsync();

@@ -35,8 +35,8 @@ namespace LemonadeStand.Services
       var isSuccessful = false;
       try
       {
-        var elineItem = _mapper.Map<IEnumerable<LineItem>>(lineItems);
-        elineItem.Select(x => new LineItem
+        var elineItem = _mapper.Map<IEnumerable<LineItemEntity>>(lineItems);
+        elineItem.Select(x => new LineItemEntity
         {
           OrderId = orderId,
           ProductId = x.ProductId,

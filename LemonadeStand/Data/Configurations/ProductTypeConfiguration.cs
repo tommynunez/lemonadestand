@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LemonadeStand.Data.Configurations
 {
-  public class ProductTypeConfiguration : IEntityTypeConfiguration<ProductType>
+  public class ProductTypeConfiguration : IEntityTypeConfiguration<ProductTypeEntity>
   {
     public ProductTypeConfiguration()
     {
     }
 
-    public void Configure(EntityTypeBuilder<ProductType> builder)
+    public void Configure(EntityTypeBuilder<ProductTypeEntity> builder)
     {
       builder.ToTable("ProductType");
       builder.HasKey(x => x.Id);

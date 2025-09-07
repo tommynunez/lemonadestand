@@ -7,8 +7,8 @@ namespace LemonadeStand.Abstractions.Interfaces
 {
 	public interface IOrderRepository
 	{
-		Task<int> InsertOrderAsync(Order order);
-		Task<IEnumerable<Order>> GetOrdersAsync();
+		Task<int> InsertOrderAsync(OrderEntity order);
+		Task<IEnumerable<OrderEntity>> GetOrdersAsync();
 	}
 }
 

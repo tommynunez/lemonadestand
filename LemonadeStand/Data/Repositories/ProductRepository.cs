@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LemonadeStand.Abstractions.Entities;
+﻿using LemonadeStand.Abstractions.Entities;
 using LemonadeStand.Abstractions.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace LemonadeStand.Data.Repositories
 {
@@ -24,22 +19,23 @@ namespace LemonadeStand.Data.Repositories
       _logger = logger;
     }
 
-    public async Task<Product> GetByIdAsync(int id)
+    public async Task<ProductEntity> GetByIdAsync(int id)
     {
-      return await _databaseContext.Products
-          .Include(x => x.Sizes)
-          .Include(x => x.ProductTypes)
+      return await _databaseContext
+          .Products
+          .Include(x => x.Size)
+          .Include(x => x.ProductType)
           .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task InsertAsync(Product product)
+    public async Task InsertAsync(ProductEntity product)
     {
       await _databaseContext.Products.AddAsync(product);
       await _databaseContext.SaveChangesAsync();
       _databaseContext.ChangeTracker.Clear();
     }
 
-    public async Task UpdateAsync(int id, Product product)
+    public async Task UpdateAsync(int id, ProductEntity product)
     {
       _databaseContext.Products.Update(product);
       await _databaseContext.SaveChangesAsync();
@@ -55,16 +51,16 @@ namespace LemonadeStand.Data.Repositories
       _databaseContext.ChangeTracker.Clear();
     }
 
-    public async Task<IEnumerable<Product>> GetAllProductsAsync()
+    public async Task<IEnumerable<ProductEntity>> GetAllProductsAsync()
     {
-      var eProductList = new List<Product>();
+      var eProductList = new List<ProductEntity>();
 
       try
       {
         _logger.LogInformation(GET_PRODUCT_MESSAGE);
         eProductList = await _databaseContext.Products
-            .Include(x => x.Sizes)
-            .Include(x => x.ProductTypes).ToListAsync();
+            .Include(x => x.Size)
+            .Include(x => x.ProductType).ToListAsync();
       }
       catch (Exception ex)
       {

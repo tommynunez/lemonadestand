@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Location = LemonadeStand.Abstractions.Entities.Location;
+using LocationEntity = LemonadeStand.Abstractions.Entities.LocationEntity;
 
 namespace LemonadeStand.Data.Configurations
 {
-  public class LocationConfiguration : IEntityTypeConfiguration<Location>
+  public class LocationConfiguration : IEntityTypeConfiguration<LocationEntity>
   {
-    public void Configure(EntityTypeBuilder<Location> builder)
+    public void Configure(EntityTypeBuilder<LocationEntity> builder)
     {
       builder.ToTable("Location");
       builder.HasKey(lo => lo.Id);

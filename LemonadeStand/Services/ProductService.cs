@@ -1,12 +1,9 @@
-﻿using LemonadeStand.Abstractions.Interfaces;
+﻿using AutoMapper;
+using LemonadeStand.Abstractions.Interfaces;
+using LemonadeStand.Abstractions.Interfaces.Product;
 using LemonadeStand.Abstractions.Models;
-using AutoMapper;
-using Microsoft.Toolkit.Diagnostics;
 using LemonadeStand.Abstractions.Struct;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
+using Microsoft.Toolkit.Diagnostics;
 
 namespace LemonadeStand.Services
 {
@@ -69,7 +66,7 @@ namespace LemonadeStand.Services
       {
         Guard.IsNotNull<ProductMutation>(product, nameof(product));
         _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_INSERT_SERVICE);
-        var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.Product>(product);
+        var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.ProductEntity>(product);
         await _productRepository.InsertAsync(oEntity);
       }
       catch (Exception ex)
@@ -85,7 +82,7 @@ namespace LemonadeStand.Services
         Guard.IsNotEqualTo<int>(id, 0, nameof(id));
         Guard.IsNotNull<ProductMutation>(product, nameof(product));
         _logger.LogInformation(ProductLogMessages.PRODUCT_INVOKE_UPDATE_SERVICE);
-        var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.Product>(product);
+        var oEntity = _mapper.Map<LemonadeStand.Abstractions.Entities.ProductEntity>(product);
         await _productRepository.UpdateAsync(id, oEntity);
       }
       catch (Exception ex)

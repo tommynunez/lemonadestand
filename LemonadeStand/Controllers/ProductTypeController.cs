@@ -1,4 +1,4 @@
-﻿using LemonadeStand.Abstractions.Interfaces;
+﻿using LemonadeStand.Abstractions.Interfaces.Product;
 using LemonadeStand.Abstractions.Models;
 using LemonadeStand.Abstractions.Struct;
 using Microsoft.AspNetCore.Mvc;

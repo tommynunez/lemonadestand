@@ -6,12 +6,12 @@ namespace LemonadeStand.Abstractions.Interfaces
 {
 	public interface ISizeRepository
 	{
-		Task<Size> GetByIdAsync( int id);
-		Task<IEnumerable<Size>> GetAllAsync(string search, int pageIndex, int pageSize, string sortField = null);
-		Task InsertAsync(Size size);
-		Task UpdateAsync(int id, Size size);
+		Task<SizeEntity> GetByIdAsync( int id);
+		Task<IEnumerable<SizeEntity>> GetAllAsync(string search, int pageIndex, int pageSize, string sortField = null);
+		Task InsertAsync(SizeEntity size);
+		Task UpdateAsync(int id, SizeEntity size);
 		Task DeleteAsync(int id);
-		Task<IEnumerable<Size>> GetAllSizesAsync();
+		Task<IEnumerable<SizeEntity>> GetAllSizesAsync();
 	}
 }
 

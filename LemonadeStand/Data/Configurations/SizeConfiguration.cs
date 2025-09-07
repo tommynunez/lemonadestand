@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LemonadeStand.Data.Configurations
 {
-  public class SizeConfiguration : IEntityTypeConfiguration<Size>
+  public class SizeConfiguration : IEntityTypeConfiguration<SizeEntity>
   {
     public SizeConfiguration()
     {
     }
 
-    public void Configure(EntityTypeBuilder<Size> builder)
+    public void Configure(EntityTypeBuilder<SizeEntity> builder)
     {
       builder.ToTable("Size");
       builder.HasKey(x => x.Id);

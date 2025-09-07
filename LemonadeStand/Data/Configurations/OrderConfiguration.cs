@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LemonadeStand.Data.Configurations
 {
-  public class OrderConfiguration : IEntityTypeConfiguration<Order>
+  public class OrderConfiguration : IEntityTypeConfiguration<OrderEntity>
   {
-    public void Configure(EntityTypeBuilder<Order> builder)
+    public void Configure(EntityTypeBuilder<OrderEntity> builder)
     {
       builder.ToTable("Order");
       builder.HasKey(o => o.Id);

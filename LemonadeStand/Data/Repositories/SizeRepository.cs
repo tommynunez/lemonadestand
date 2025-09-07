@@ -30,9 +30,9 @@ namespace LemonadeStand.Data.Repositories
       _databaseContext.ChangeTracker.Clear();
     }
 
-    public async Task<IEnumerable<Size>> GetAllAsync(string search, int pageIndex, int pageSize, string sortField = null)
+    public async Task<IEnumerable<SizeEntity>> GetAllAsync(string search, int pageIndex, int pageSize, string sortField = null)
     {
-      IQueryable<Size> query = _databaseContext.Sizes.AsQueryable();
+      IQueryable<SizeEntity> query = _databaseContext.Sizes.AsQueryable();
 
       if (!String.IsNullOrWhiteSpace(search))
       {
@@ -63,25 +63,25 @@ namespace LemonadeStand.Data.Repositories
       return await query.ToListAsync();
     }
 
-    public async Task<IEnumerable<Size>> GetAllSizesAsync()
+    public async Task<IEnumerable<SizeEntity>> GetAllSizesAsync()
     {
       return await _databaseContext.Sizes.ToListAsync();
     }
 
-    public async Task<Size> GetByIdAsync(int id)
+    public async Task<SizeEntity> GetByIdAsync(int id)
     {
       var oReturn = await _databaseContext.Sizes.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
       return oReturn;
     }
 
-    public async Task InsertAsync(Size size)
+    public async Task InsertAsync(SizeEntity size)
     {
       await _databaseContext.Sizes.AddAsync(size);
       await _databaseContext.SaveChangesAsync();
       _databaseContext.ChangeTracker.Clear();
     }
 
-    public async Task UpdateAsync(int id, Size size)
+    public async Task UpdateAsync(int id, SizeEntity size)
     {
       _databaseContext.Sizes.Update(size);
       await _databaseContext.SaveChangesAsync();

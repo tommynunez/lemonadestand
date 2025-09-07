@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LemonadeStand.Data.Configurations
 {
-  public class LineItemConfiguration : IEntityTypeConfiguration<LineItem>
+  public class LineItemConfiguration : IEntityTypeConfiguration<LineItemEntity>
   {
-    public void Configure(EntityTypeBuilder<LineItem> builder)
+    public void Configure(EntityTypeBuilder<LineItemEntity> builder)
     {
       builder.ToTable("LineIitem");
       builder.HasKey(li => li.Id);

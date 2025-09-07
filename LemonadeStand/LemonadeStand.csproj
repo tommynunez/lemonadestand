@@ -58,13 +58,6 @@
     <None Remove="HotChocolate.Subscriptions" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Graphql\" />
-    <Folder Include="Graphql\Mutations\" />
-    <Folder Include="Graphql\Queries\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\LemonadeStand.Abstractions\LemonadeStand.Abstractions.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

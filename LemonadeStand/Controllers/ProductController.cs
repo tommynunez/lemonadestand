@@ -1,4 +1,5 @@
 ﻿using LemonadeStand.Abstractions.Interfaces;
+using LemonadeStand.Abstractions.Interfaces.Product;
 using LemonadeStand.Abstractions.Models;
 using LemonadeStand.Abstractions.Struct;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,15 @@ namespace LemonadeStand.Controllers
   {
     private readonly IProductService _productService;
     private readonly ILogger<ProductTypeController> _logger;
-    public ProductController(IProductService productService, ILogger<ProductTypeController> logger)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public ProductController(IProductService productService,
+      ILogger<ProductTypeController> logger,
+      IHttpContextAccessor httpContextAccessor)
     {
       _logger = logger;
       _productService = productService;
+      _httpContextAccessor = httpContextAccessor;
     }
 
     [HttpDelete("{id}")]

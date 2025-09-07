@@ -1,7 +1,7 @@
-﻿using System.Security.Claims;
-using LemonadeStand.Abstractions.Entities;
+﻿using LemonadeStand.Abstractions.Entities;
 using LemonadeStand.Abstractions.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace LemonadeStand.Data.Repositories
 {
@@ -23,7 +23,7 @@ namespace LemonadeStand.Data.Repositories
       _userId = (int)httpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier).First();
     }
 
-    public async Task<int> InsertOrderAsync(Order order)
+    public async Task<int> InsertOrderAsync(OrderEntity order)
     {
       var returnValue = 0;
       try
@@ -41,9 +41,9 @@ namespace LemonadeStand.Data.Repositories
       return returnValue;
     }
 
-    public async Task<IEnumerable<Order>> GetOrdersAsync()
+    public async Task<IEnumerable<OrderEntity>> GetOrdersAsync()
     {
-      var eOrderList = new List<Order>();
+      var eOrderList = new List<OrderEntity>();
 
       try
       {
@@ -51,9 +51,9 @@ namespace LemonadeStand.Data.Repositories
         eOrderList = await _context.Orders
             .Include(x => x.LineItems)
                 .ThenInclude(x => x.Product)
-                    .ThenInclude(x => x.ProductTypes)
+                    .ThenInclude(x => x.ProductType)
                 .ThenInclude(x => x.Products)
-                    .ThenInclude(x => x.Sizes)
+                    .ThenInclude(x => x.Size)
                     .OrderByDescending(x => x.Created)
             .ToListAsync();
       }
